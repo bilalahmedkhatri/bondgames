@@ -3,6 +3,7 @@ import { Inter, Syne } from 'next/font/google';
 import './globals.css';
 import { ClientShell } from '@/components/ClientShell';
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, isPreview } from '@/lib/seo';
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   variable: '--font-inter',
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${syne.variable} dark`}>
       <body className="bg-brand-bg text-brand-text min-h-screen flex flex-col antialiased selection:bg-brand-red selection:text-white">
         <ClientShell>{children}</ClientShell>
+        <Analytics />
       </body>
     </html>
   );
