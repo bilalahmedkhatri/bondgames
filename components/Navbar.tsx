@@ -18,23 +18,19 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
     { label: 'Games', href: '/games' },
     { label: 'News Feed', href: '/news' },
     { label: 'Benchmarks & Compare', href: '/hardware' },
-    // { label: 'Guest Post', href: '/submit-post', highlight: true },
     { label: 'Advertise', href: '/advertise' }
   ];
 
   return (
     <header className="sticky top-0 z-40 bg-brand-bg/95 backdrop-blur-md border-b border-brand-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
 
           {/* Logo & Main Nav */}
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 bg-brand-red flex items-center justify-center font-black text-white text-xl font-heading rounded-md shadow-lg shadow-rose-950/40 group-hover:bg-white group-hover:text-black transition-all">
-                G
-              </div>
               <span className="font-heading text-2xl font-black tracking-tighter text-white">
-                GAMER<span className="text-brand-red">GRID</span>
+                BONDS<span className="text-brand-red">GAME</span>
               </span>
             </Link>
 
@@ -46,10 +42,10 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
                     key={link.href}
                     href={link.href}
                     className={`px-3.5 py-2 rounded-md transition-all ${isActive
-                        ? 'text-white bg-brand-surface border-b-2 border-brand-red font-extrabold'
-                        : link.highlight
-                          ? 'text-amber-400 hover:text-amber-300 hover:bg-brand-surface'
-                          : 'text-brand-muted hover:text-white hover:bg-brand-surface/60'
+                      ? 'text-white bg-brand-surface border-b-2 border-brand-red font-extrabold'
+                      : link.highlight
+                        ? 'text-amber-400 hover:text-amber-300 hover:bg-brand-surface'
+                        : 'text-brand-muted hover:text-white hover:bg-brand-surface/60'
                       }`}
                   >
                     {link.label}
@@ -73,15 +69,6 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
                 ⌘K
               </kbd>
             </button>
-
-            {/* Dashboard / Profile */}
-            <Link
-              href="/dashboard"
-              className="bg-brand-surface hover:bg-brand-surfaceHover text-brand-text p-2.5 rounded-lg border border-brand-border transition-colors flex items-center justify-center"
-              title="User Dashboard & Wishlist"
-            >
-              <User className="w-4 h-4 text-brand-muted hover:text-brand-red" />
-            </Link>
 
             {/* Mobile Menu Toggle Button */}
             <button

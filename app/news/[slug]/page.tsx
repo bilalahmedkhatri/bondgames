@@ -62,7 +62,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   }));
 
   return (
-    <article className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+    <article className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
       <JsonLd data={{
         '@context': 'https://schema.org', '@type': article.category === 'News' ? 'NewsArticle' : 'Article',
         headline: article.title, description: article.excerpt,
@@ -223,7 +223,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
                 {article.authorRole || 'Editorial Staff'}
               </p>
               <p className="text-sm text-brand-muted leading-relaxed">
-                Covering technical deep-dives, industry shifts, and hardware engineering across PC and console ecosystems. GamerGrid verified journalist.
+                Covering technical deep-dives, industry shifts, and hardware engineering across PC and console ecosystems. BondsGame verified journalist.
               </p>
             </div>
           </div>

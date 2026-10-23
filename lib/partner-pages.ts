@@ -3,12 +3,12 @@ import type { PartnerPageContent } from '@/lib/types';
 export const mediaKitPage: PartnerPageContent = {
   path: '/media-kit',
   title: 'Media Kit & Audience Information',
-  description: 'Explore GamerGrid coverage, audience interests, campaign formats and media planning requirements. Request verified audience data for your campaign.',
+  description: 'Explore BondsGame coverage, audience interests, campaign formats and media planning requirements. Request verified audience data for your campaign.',
   introduction: 'Plan a gaming campaign with a clear view of our coverage, available partnership discussions and the information needed for a proposal. This media kit helps you prepare a brief before requesting a quote.',
   sections: [
     {
-      id: 'coverage', title: 'What GamerGrid covers',
-      paragraphs: ['GamerGrid publishes gaming news, game features, hardware comparisons and store offers. Our coverage spans PC, PlayStation, Xbox and Nintendo gaming.'],
+      id: 'coverage', title: 'What BondsGame covers',
+      paragraphs: ['BondsGame publishes gaming news, game features, hardware comparisons and store offers. Our coverage spans PC, PlayStation, Xbox and Nintendo gaming.'],
       items: ['Game announcements, industry developments and practical player guides.', 'PC hardware, system requirements and performance topics.', 'Gaming offers, community discussions and contributor perspectives.'],
     },
     {
@@ -37,7 +37,7 @@ export const mediaKitPage: PartnerPageContent = {
 export const editorialGuidelinesPage: PartnerPageContent = {
   path: '/editorial-guidelines',
   title: 'Editorial Guidelines',
-  description: 'Read GamerGrid standards for sourcing, original reporting, game reviews, hardware benchmarks, corrections and clear sponsorship disclosures.',
+  description: 'Read BondsGame standards for sourcing, original reporting, game reviews, hardware benchmarks, corrections and clear sponsorship disclosures.',
   introduction: 'These standards explain how contributors should research, write and check gaming coverage. They apply to news, features, reviews and hardware articles, including commissioned and sponsored submissions.',
   sections: [
     {
@@ -77,12 +77,12 @@ export const editorialGuidelinesPage: PartnerPageContent = {
 export const affiliatePolicyPage: PartnerPageContent = {
   path: '/affiliate-policy',
   title: 'Affiliate Policy',
-  description: 'Understand GamerGrid affiliate disclosures, purchase links, editorial independence, retailer pricing and how to report a missing disclosure.',
-  introduction: 'This policy explains how commercial purchase links should be presented on GamerGrid and how those relationships are kept separate from editorial decisions. A link to a retailer is not, by itself, evidence of an affiliate agreement.',
+  description: 'Understand BondsGame affiliate disclosures, purchase links, editorial independence, retailer pricing and how to report a missing disclosure.',
+  introduction: 'This policy explains how commercial purchase links should be presented on BondsGame and how those relationships are kept separate from editorial decisions. A link to a retailer is not, by itself, evidence of an affiliate agreement.',
   sections: [
     {
       id: 'affiliate-links', title: 'What an affiliate link means',
-      paragraphs: ['An affiliate link can allow a retailer or partner to attribute a purchase or another qualifying action to a referral. If an active agreement applies, the publisher may receive a commission under that programme.', 'Not every store link on GamerGrid is monetised. This page does not assert membership of any particular retailer programme. The disclosure accompanying the relevant article or offer should explain the relationship that actually applies.'],
+      paragraphs: ['An affiliate link can allow a retailer or partner to attribute a purchase or another qualifying action to a referral. If an active agreement applies, the publisher may receive a commission under that programme.', 'Not every store link on BondsGame is monetised. This page does not assert membership of any particular retailer programme. The disclosure accompanying the relevant article or offer should explain the relationship that actually applies.'],
     },
     {
       id: 'disclosures', title: 'Where disclosures belong',
@@ -99,7 +99,7 @@ export const affiliatePolicyPage: PartnerPageContent = {
     },
     {
       id: 'tracking', title: 'Referral tracking & privacy',
-      paragraphs: ['A retailer or affiliate network may use referral parameters, cookies or other attribution methods when a monetised link is used. The exact method depends on the programme and the services involved.', 'Review the destination service privacy and cookie information before making a purchase. This policy does not claim that any particular tracking technology or affiliate network is currently active on GamerGrid.'],
+      paragraphs: ['A retailer or affiliate network may use referral parameters, cookies or other attribution methods when a monetised link is used. The exact method depends on the programme and the services involved.', 'Review the destination service privacy and cookie information before making a purchase. This policy does not claim that any particular tracking technology or affiliate network is currently active on BondsGame.'],
     },
     {
       id: 'questions', title: 'Report a link or disclosure issue',

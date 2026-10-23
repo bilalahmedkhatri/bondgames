@@ -13,7 +13,7 @@ export default async function DashboardPage() {
   const comments = await getUserActivityComments();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-10">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-10">
       <Breadcrumbs items={[{ label: 'Gamer Profile & Dashboard' }]} />
 
       {/* User Header Profile Card */}

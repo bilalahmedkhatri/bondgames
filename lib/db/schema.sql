@@ -1,4 +1,4 @@
--- Schema for GamerGrid on Neon PostgreSQL
+-- Schema for BondsGame on Neon PostgreSQL
 
 CREATE TABLE IF NOT EXISTS games (
   id VARCHAR(64) PRIMARY KEY,

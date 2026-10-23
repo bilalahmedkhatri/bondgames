@@ -3,7 +3,7 @@ import type { PartnerPageContent } from '@/lib/types';
 export const pressPage: PartnerPageContent = {
   path: '/press',
   title: 'Press & Review Codes',
-  description: 'Contact GamerGrid about game announcements, press materials, review access, hardware samples and embargo details. Read what to include in a press enquiry.',
+  description: 'Contact BondsGame about game announcements, press materials, review access, hardware samples and embargo details. Read what to include in a press enquiry.',
   introduction: 'A guide for developers, publishers and public-relations teams who want to share a gaming announcement or discuss review access. Send enough context for the editorial team to assess the relevance of your request.',
   sections: [
     {

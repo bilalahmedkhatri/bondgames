@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const SITE_NAME = 'GamerGrid';
+export const SITE_NAME = 'BondsGame';
 export const SITE_URL = 'https://www.bondsgame.click';
 export const SITE_DESCRIPTION = 'Gaming news, game reviews, PC system requirements, hardware comparisons and gaming deals for PC, PlayStation, Xbox and Nintendo players.';
 export const isPreview = process.env.VERCEL_ENV === 'preview' || process.env.SEO_NOINDEX === 'true';

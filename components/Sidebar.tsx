@@ -67,10 +67,10 @@ export function Sidebar({ trendingGames, recentArticles, poll, className = '' }:
       )}
 
       {/* Ad Placeholder */}
-      <div className="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-6 flex flex-col items-center justify-center text-center gap-2 min-h-[200px]">
+      {/* <div className="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-6 flex flex-col items-center justify-center text-center gap-2 min-h-[200px]">
         <span className="text-xs font-mono text-muted-text uppercase tracking-widest">Advertisement</span>
         <span className="text-xs text-slate-600">300 × 250</span>
-      </div>
+      </div> */}
     </aside>
   );
 }

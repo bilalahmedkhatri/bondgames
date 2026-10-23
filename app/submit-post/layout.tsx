@@ -2,7 +2,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
   title: 'Write for Us — Gaming Guest Post Guidelines',
-  description: 'Write for GamerGrid: read gaming guest post guidelines, explore article topics and contact the editorial team about contributions and sponsored content.',
+  description: 'Write for BondsGame: read gaming guest post guidelines, explore article topics and contact the editorial team about contributions and sponsored content.',
   path: '/submit-post',
 });
 

@@ -10,7 +10,7 @@ import { getArticles } from '@/lib/db/articles';
 import { INITIAL_BENCHMARKS, INITIAL_HARDWARE_COMPARISON } from '@/lib/db/seed-data';
 import { Cpu, Zap, HardDrive, CheckCircle2, Sliders, ShieldAlert } from 'lucide-react';
 
-export const metadata = pageMetadata({"title":"Gaming Hardware Comparisons & Benchmarks","description":"Compare gaming hardware specifications and explore GPU comparisons, PC performance breakdowns and game system requirements.","path":"/hardware"});
+export const metadata = pageMetadata({ "title": "Gaming Hardware Comparisons & Benchmarks", "description": "Compare gaming hardware specifications and explore GPU comparisons, PC performance breakdowns and game system requirements.", "path": "/hardware" });
 
 export default async function HardwarePage() {
   const articles = await getArticles({ category: 'Hardware' });
@@ -30,7 +30,7 @@ export default async function HardwarePage() {
   const comparison = INITIAL_HARDWARE_COMPARISON;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-10">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-10">
       <Breadcrumbs items={[{ label: 'Hardware Lab & GPU Benchmarks' }]} />
 
       {/* Header */}
@@ -127,13 +127,12 @@ export default async function HardwarePage() {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        row.winner === 'A'
-                          ? 'bg-brand-red/20 text-brand-red border border-brand-red/40'
-                          : row.winner === 'B'
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${row.winner === 'A'
+                        ? 'bg-brand-red/20 text-brand-red border border-brand-red/40'
+                        : row.winner === 'B'
                           ? 'bg-brand-cyan/20 text-brand-cyan border-brand-cyan/40'
                           : 'bg-slate-700/50 text-slate-300'
-                      }`}
+                        }`}
                     >
                       {row.winner === 'A' ? 'RTX 5090' : row.winner === 'B' ? 'RTX 4090' : 'Tied'}
                     </span>

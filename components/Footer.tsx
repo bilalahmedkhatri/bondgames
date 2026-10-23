@@ -23,23 +23,20 @@ export function Footer() {
 
   return (
     <footer className="bg-black border-t border-brand-border mt-20 text-brand-muted text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 space-y-12">
-        
+      <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-14 space-y-12">
+
         {/* Main Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          
+
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-brand-red flex items-center justify-center font-black text-white text-lg font-heading rounded">
-                G
-              </div>
               <span className="font-heading text-xl font-black tracking-tighter text-white">
-                GAMER<span className="text-brand-red">GRID</span>
+                BONDS<span className="text-brand-red">GAME</span>
               </span>
             </Link>
             <p className="text-xs text-brand-muted leading-relaxed max-w-sm">
-              GamerGrid is a high-performance independent gaming journalism and review portal dedicated to unbiased evaluations, hardware benchmark teardowns, and breaking video game news.
+              BondsGame is a high-performance independent gaming journalism and review portal dedicated to unbiased evaluations, hardware benchmark teardowns, and breaking video game news.
             </p>
             <div className="pt-2 text-[11px] font-mono text-slate-400">
               Covering PC, PlayStation, Xbox & Nintendo gaming.
@@ -124,7 +121,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-brand-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono">
           <div>
-            © 2026 GamerGrid Media Network Inc. All rights reserved.
+            © 2026 BondsGame Media Network Inc. All rights reserved.
           </div>
           <div className="flex items-center gap-6 text-brand-muted">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>

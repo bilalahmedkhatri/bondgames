@@ -4,9 +4,9 @@ export const CONTRIBUTOR_EMAIL: string = 'bilal.azeemlab@gmail.com';
 export const contributorSections = [
   {
     id: 'about',
-    title: 'About GamerGrid',
+    title: 'About BondsGame',
     paragraphs: [
-      'GamerGrid covers video games, PC hardware and the people who make and play games. We welcome practical, experience-based articles for PC, PlayStation, Xbox and Nintendo players, as well as developers and creators working in gaming.',
+      'BondsGame covers video games, PC hardware and the people who make and play games. We welcome practical, experience-based articles for PC, PlayStation, Xbox and Nintendo players, as well as developers and creators working in gaming.',
       'Write for a knowledgeable peer. Skip textbook definitions, explain the problem you encountered and get to the part that helps someone play, build or understand something better.',
     ],
     items: [],
@@ -89,7 +89,7 @@ export const contributorSections = [
     title: 'What we ask of you',
     paragraphs: [],
     items: [
-      { title: '', description: 'Submit original work written for GamerGrid and tell us if you are pitching the same idea elsewhere.' },
+      { title: '', description: 'Submit original work written for BondsGame and tell us if you are pitching the same idea elsewhere.' },
       { title: '', description: 'Work with your editor, respond to feedback and flag any factual uncertainty before publication.' },
       { title: '', description: 'Agree on a delivery date and tell us promptly if it changes.' },
       { title: '', description: 'Follow our editorial and publishing policy, particularly when writing about your employer, products or business partners.' },
@@ -113,7 +113,7 @@ export const contributorSections = [
 export const contributorFaqs = [
   { question: 'Do I need writing experience?', answer: 'No. You need a useful idea, relevant experience and a clear outline. Editorial feedback can help you turn that outline into an article.' },
   { question: 'Can I link to my company or portfolio?', answer: 'Yes, in your bio and where a link helps the reader. Disclose your connection. Unnecessary promotional links may be removed, and paid placement links must be marked as sponsored.' },
-  { question: 'Can I republish my article on my own blog later?', answer: 'Ask your editor before republishing. Any waiting period, attribution and canonical link back to GamerGrid must be agreed in writing.' },
+  { question: 'Can I republish my article on my own blog later?', answer: 'Ask your editor before republishing. Any waiting period, attribution and canonical link back to BondsGame must be agreed in writing.' },
   { question: 'What if my pitch is rejected?', answer: 'You are welcome to pitch again with a different topic or angle. A rejection does not prevent you from contributing in the future.' },
   { question: 'Are contributors paid, or do contributors pay?', answer: 'Sponsored placement fees are paid by the advertiser or submitting partner. Any separate commissioned writing fee must be agreed with the editor before work begins. Sending an enquiry does not arrange a contributor payment or guarantee publication.' },
 ];

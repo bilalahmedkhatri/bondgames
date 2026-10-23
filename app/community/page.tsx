@@ -1,7 +1,6 @@
 import React from 'react';
 import { pageMetadata } from '@/lib/seo';
 
-import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { CommunityPoll } from '@/components/CommunityPoll';
@@ -9,7 +8,7 @@ import { getPoll } from '@/lib/db/poll';
 import { getGames } from '@/lib/db/games';
 import { Users, MessageSquare, ThumbsUp, Flame, ExternalLink } from 'lucide-react';
 
-export const metadata = pageMetadata({"title":"Gaming Community & Polls","description":"Join gaming discussions, explore community debates and vote in the GamerGrid gaming poll.","path":"/community"});
+export const metadata = pageMetadata({ "title": "Gaming Community & Polls", "description": "Join gaming discussions, explore community debates and vote in the BondsGame gaming poll.", "path": "/community" });
 
 export default async function CommunityPage() {
   const [poll, games] = await Promise.all([getPoll(), getGames()]);
@@ -50,14 +49,14 @@ export default async function CommunityPage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-10">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-10">
       <Breadcrumbs items={[{ label: 'Community Hub & Polls' }]} />
 
       {/* Header */}
       <div className="border-b border-brand-border pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-brand-purple flex items-center gap-1.5">
-            <Users className="w-3.5 h-3.5" /> GamerGrid Community Lounge
+            <Users className="w-3.5 h-3.5" /> BondsGame Community Lounge
           </span>
           <h1 className="font-heading text-3xl sm:text-4xl font-black text-white tracking-tight mt-1">
             Community Polls, Debates & Discord Dispatch
@@ -67,16 +66,6 @@ export default async function CommunityPage() {
           </p>
         </div>
 
-        {/* Discord join badge */}
-        <a
-          href="https://discord.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600 hover:text-white transition-all text-xs font-mono font-bold shrink-0"
-        >
-          <span>Join Official Discord (142k)</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
       </div>
 
       {/* Top Grid: Live Poll + Active Debates */}

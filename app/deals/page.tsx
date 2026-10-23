@@ -9,7 +9,7 @@ import { ArticleCard } from '@/components/ArticleCard';
 import { getArticles } from '@/lib/db/articles';
 import { Tag, ExternalLink, Percent, Clock, Sparkles } from 'lucide-react';
 
-export const metadata = pageMetadata({"title":"Gaming Deals & Store Offers","description":"Browse featured PC and console game deals and follow store links to check current prices, availability and offers.","path":"/deals"});
+export const metadata = pageMetadata({ "title": "Gaming Deals & Store Offers", "description": "Browse featured PC and console game deals and follow store links to check current prices, availability and offers.", "path": "/deals" });
 
 interface DealItem {
   id: string;
@@ -103,7 +103,7 @@ export default async function DealsPage() {
   const dealArticles = await getArticles({ category: 'Deals' });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-10">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-10">
       <Breadcrumbs items={[{ label: 'Gaming Deals & Loot Drops' }]} />
 
       {/* Header */}
@@ -146,7 +146,7 @@ export default async function DealsPage() {
                     sizes="(max-width: 640px) 100vw, 400px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-surface via-transparent to-transparent" />
-                  
+
                   {/* Percent badge */}
                   <div className="absolute top-3 right-3 bg-emerald-500 text-black font-black text-xs px-2.5 py-1 rounded font-mono shadow-lg">
                     -{deal.discountPercent}%
@@ -166,7 +166,7 @@ export default async function DealsPage() {
                   <h3 className="font-heading text-lg font-bold text-white leading-tight group-hover:text-emerald-400 transition-colors line-clamp-1">
                     {deal.title}
                   </h3>
-                  
+
                   {/* Price display */}
                   <div className="flex items-baseline gap-2 pt-1 font-mono">
                     <span className="text-xl font-black text-white">

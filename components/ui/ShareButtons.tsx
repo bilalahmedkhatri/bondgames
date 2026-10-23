@@ -15,7 +15,7 @@ export function ShareButtons({ title, url, className = '' }: ShareButtonsProps) 
   const getUrl = () => {
     if (url) return url;
     if (typeof window !== 'undefined') return window.location.href;
-    return 'https://gamergrid.io';
+    return 'https://BondsGame.io';
   };
 
   const handleCopy = async () => {

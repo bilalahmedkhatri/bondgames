@@ -62,8 +62,8 @@ export default function AdvertisePage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-12">
-      <Breadcrumbs items={[{ label: 'Advertise With GamerGrid' }]} />
+    <div className="max-w-6xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-12">
+      <Breadcrumbs items={[{ label: 'Advertise With BondsGame' }]} />
 
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">

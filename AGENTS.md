@@ -8,9 +8,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# GamerGrid — Engineering & Agent Architecture Guide
+# BondsGame — Engineering & Agent Architecture Guide
 
-Welcome to **GamerGrid**, a high-performance, dynamic gaming news, review, and hardware benchmark web portal inspired by IGN, GameSpot, and Polygon. This document serves as the canonical guide for AI agents, pair programmers, and human contributors working within this repository.
+Welcome to **BondsGame**, a high-performance, dynamic gaming news, review, and hardware benchmark web portal inspired by IGN, GameSpot, and Polygon. This document serves as the canonical guide for AI agents, pair programmers, and human contributors working within this repository.
 
 ---
 

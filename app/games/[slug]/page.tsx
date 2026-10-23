@@ -65,7 +65,7 @@ export default async function GameDetailPage({ params }: GamePageProps) {
   }));
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-10">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-10">
       <JsonLd data={{
         '@context': 'https://schema.org', '@type': 'VideoGame',
         name: game.title, description: game.excerpt, image: game.heroImage || game.coverImage,
@@ -190,7 +190,7 @@ export default async function GameDetailPage({ params }: GamePageProps) {
 
           {/* Share & Social */}
           <div className="pt-4 border-t border-brand-border flex items-center justify-between">
-            <ShareButtons title={`Check out the review for ${game.title} on GamerGrid`} />
+            <ShareButtons title={`Check out the review for ${game.title} on BondsGame`} />
           </div>
 
           {/* Discussion Section */}

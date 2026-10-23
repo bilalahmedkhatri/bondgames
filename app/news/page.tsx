@@ -15,7 +15,7 @@ import Link from 'next/link';
 export async function generateMetadata({ searchParams }: NewsPageProps) {
   const params = await searchParams;
   const filtered = Boolean(params.category && params.category.toLowerCase() !== 'all');
-  const metadata = pageMetadata({"title":"Gaming News & Industry Reports","description":"Read gaming news, hardware reports, game previews, features and industry updates from GamerGrid.","path":"/news", noIndex: filtered });
+  const metadata = pageMetadata({ "title": "Gaming News & Industry Reports", "description": "Read gaming news, hardware reports, game previews, features and industry updates from BondsGame.", "path": "/news", noIndex: filtered });
   if (filtered) delete metadata.alternates;
   return metadata;
 }
@@ -40,7 +40,7 @@ export default async function NewsHubPage({ searchParams }: NewsPageProps) {
   const gridArticles = leadArticle ? allArticles.slice(1) : allArticles;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
       {/* Breadcrumb Navigation */}
       <Breadcrumbs items={[{ label: 'News & Editorial Hub' }]} />
 
@@ -67,11 +67,10 @@ export default async function NewsHubPage({ searchParams }: NewsPageProps) {
               <Link
                 key={cat}
                 href={href}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all border ${
-                  isActive
-                    ? 'bg-brand-red text-white border-brand-red shadow-lg shadow-brand-red/20'
-                    : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white hover:border-slate-700'
-                }`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all border ${isActive
+                  ? 'bg-brand-red text-white border-brand-red shadow-lg shadow-brand-red/20'
+                  : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white hover:border-slate-700'
+                  }`}
               >
                 {cat === 'all' ? 'All Dispatches' : cat}
               </Link>

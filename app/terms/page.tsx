@@ -4,11 +4,11 @@ import { pageMetadata } from '@/lib/seo';
 
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const metadata = pageMetadata({"title":"Terms of Service & Editorial Policy","description":"Read GamerGrid terms of service, editorial guidelines, advertising disclosures and affiliate policies.","path":"/terms"});
+export const metadata = pageMetadata({ "title": "Terms of Service & Editorial Policy", "description": "Read BondsGame terms of service, editorial guidelines, advertising disclosures and affiliate policies.", "path": "/terms" });
 
 export default function TermsPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+    <div className="max-w-4xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
       <Breadcrumbs items={[{ label: 'Terms of Service & Editorial Policy' }]} />
 
       <div className="space-y-4 border-b border-brand-border pb-6">
@@ -16,14 +16,14 @@ export default function TermsPage() {
           Terms of Service & Editorial Guidelines
         </h1>
         <p className="text-sm font-mono text-brand-muted">
-          Last revised: October 2026 • GamerGrid Media Network
+          Last revised: October 2026 • BondsGame Media Network
         </p>
       </div>
 
       <div className="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm sm:text-base leading-relaxed">
         <h2 className="font-heading text-xl font-bold text-white">1. Editorial Independence & Review Standards</h2>
         <p>
-          At GamerGrid, editorial scores (0 to 10) are determined entirely by independent reviewer evaluations. Review codes, hardware samples, and publisher briefings are accepted under the strict condition that editorial autonomy remains uncompromising. Publishers and advertisers hold no editorial oversight, advance copy review privileges, or scoring influence.
+          At BondsGame, editorial scores (0 to 10) are determined entirely by independent reviewer evaluations. Review codes, hardware samples, and publisher briefings are accepted under the strict condition that editorial autonomy remains uncompromising. Publishers and advertisers hold no editorial oversight, advance copy review privileges, or scoring influence.
         </p>
         <p><Link href="/editorial-guidelines" className="text-brand-cyan underline underline-offset-4">Read the full editorial guidelines</Link> for sourcing, reviews, benchmark methodology and corrections.</p>
 

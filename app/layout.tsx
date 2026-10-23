@@ -21,8 +21,8 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'GamerGrid | High-End Gaming News, Reviews & Benchmarks',
-    template: '%s | GamerGrid',
+    default: 'BondsGame | High-End Gaming News, Reviews & Benchmarks',
+    template: '%s | BondsGame',
   },
   description:
     SITE_DESCRIPTION,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: SITE_NAME,
-    title: 'GamerGrid | High-End Gaming News, Reviews & Benchmarks',
+    title: 'BondsGame | High-End Gaming News, Reviews & Benchmarks',
     description: 'Premier gaming journalism, hardware teardowns, and review scores.',
   },
 };

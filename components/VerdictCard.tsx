@@ -36,7 +36,7 @@ export function VerdictCard({ game, className = '' }: VerdictCardProps) {
             )}
           </div>
           <h3 className="font-heading text-2xl font-black text-white tracking-tight">
-            GamerGrid Final Verdict
+            BondsGame Final Verdict
           </h3>
           <p className="text-xs text-brand-muted font-mono">
             Reviewed on {game.platforms.join(' / ')} • {game.developer}

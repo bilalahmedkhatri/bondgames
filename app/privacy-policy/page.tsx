@@ -3,11 +3,11 @@ import { pageMetadata } from '@/lib/seo';
 
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const metadata = pageMetadata({"title":"Privacy Policy","description":"Learn how GamerGrid handles personal information, cookies, community submissions and privacy requests.","path":"/privacy-policy"});
+export const metadata = pageMetadata({ "title": "Privacy Policy", "description": "Learn how BondsGame handles personal information, cookies, community submissions and privacy requests.", "path": "/privacy-policy" });
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+    <div className="max-w-4xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
       <Breadcrumbs items={[{ label: 'Privacy Policy' }]} />
 
       <div className="space-y-4 border-b border-brand-border pb-6">
@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
           Privacy Policy
         </h1>
         <p className="text-sm font-mono text-brand-muted">
-          Effective: October 2026 • GamerGrid Privacy Office
+          Effective: October 2026 • BondsGame Privacy Office
         </p>
       </div>
 

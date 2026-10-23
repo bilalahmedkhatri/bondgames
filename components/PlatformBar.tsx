@@ -38,7 +38,6 @@ export function PlatformBar() {
 
         <div className="hidden xl:flex items-center gap-3 text-[11px] font-mono text-brand-muted">
           <span className="text-brand-coral font-bold">• Unreal Engine 5.5 Ready</span>
-          <span>• DirectStorage 1.2</span>
         </div>
       </div>
     </div>

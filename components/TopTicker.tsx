@@ -22,7 +22,7 @@ export function TopTicker() {
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
             BREAKING
           </span>
-          <div className="overflow-hidden relative w-[280px] sm:w-[480px] md:w-[650px] lg:w-[800px] text-brand-muted text-xs">
+          <div className="overflow-hidden relative w-[280px] sm:w-[480px] md:w-[650px] lg:w-full text-brand-muted text-xs">
             <div className="animate-ticker space-x-8">
               <Link href="/news/gta-vi-leaks-ps5-pro-60fps" className="hover:text-white transition-colors">
                 GTA VI Leaks: Rockstar Reportedly Targeting 60FPS Mode on PS5 Pro
@@ -47,14 +47,6 @@ export function TopTicker() {
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center gap-4 text-brand-muted shrink-0 text-[11px]">
-          <span className="hover:text-white cursor-pointer transition-colors flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            142k Online
-          </span>
-          <span>|</span>
-          <span className="uppercase text-slate-300">{currentDate}</span>
-        </div>
       </div>
     </div>
   );

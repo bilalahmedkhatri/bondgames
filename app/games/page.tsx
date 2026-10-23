@@ -13,7 +13,7 @@ import { Flame, SlidersHorizontal, Gamepad2 } from 'lucide-react';
 export async function generateMetadata({ searchParams }: GamesPageProps) {
   const params = await searchParams;
   const filtered = Boolean(params.q?.trim() || [params.genre, params.platform, params.status].some(value => value && value.toLowerCase() !== 'all'));
-  const metadata = pageMetadata({"title":"Game Reviews, Platforms & PC Requirements","description":"Explore game details, editorial scores, supported platforms and PC system requirements in the GamerGrid catalogue.","path":"/games", noIndex: filtered });
+  const metadata = pageMetadata({ "title": "Game Reviews, Platforms & PC Requirements", "description": "Explore game details, editorial scores, supported platforms and PC system requirements in the BondsGame catalogue.", "path": "/games", noIndex: filtered });
   if (filtered) delete metadata.alternates;
   return metadata;
 }
@@ -48,7 +48,7 @@ export default async function GameCataloguePage({ searchParams }: GamesPageProps
   const platforms = ['all', 'PC', 'PS5', 'Xbox Series X'];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
       {/* Breadcrumbs */}
       <Breadcrumbs items={[{ label: 'Game Catalogue & Reviews' }]} />
 
@@ -88,11 +88,10 @@ export default async function GameCataloguePage({ searchParams }: GamesPageProps
               <Link
                 key={g}
                 href={href}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider shrink-0 transition-all border ${
-                  isActive
-                    ? 'bg-brand-purple text-white border-brand-purple shadow-lg shadow-brand-purple/20'
-                    : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white hover:border-slate-700'
-                }`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider shrink-0 transition-all border ${isActive
+                  ? 'bg-brand-purple text-white border-brand-purple shadow-lg shadow-brand-purple/20'
+                  : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white hover:border-slate-700'
+                  }`}
               >
                 {g === 'all' ? 'All Genres' : g}
               </Link>
@@ -110,11 +109,10 @@ export default async function GameCataloguePage({ searchParams }: GamesPageProps
               <Link
                 key={p}
                 href={href}
-                className={`px-2.5 py-1 rounded text-xs font-mono shrink-0 transition-all border ${
-                  isActive
-                    ? 'bg-brand-cyan/20 text-brand-cyan border-brand-cyan/60 font-bold'
-                    : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white'
-                }`}
+                className={`px-2.5 py-1 rounded text-xs font-mono shrink-0 transition-all border ${isActive
+                  ? 'bg-brand-cyan/20 text-brand-cyan border-brand-cyan/60 font-bold'
+                  : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white'
+                  }`}
               >
                 {p === 'all' ? 'All Systems' : p}
               </Link>
