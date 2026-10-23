@@ -122,9 +122,9 @@ export function ContactPageContent({ initialDepartment }: { initialDepartment: C
                 <p className="text-[10px] text-brand-cyan font-mono truncate uppercase">
                   {member.role}
                 </p>
-                <p className="text-[11px] text-brand-muted font-mono truncate mt-0.5">
+                {/* <p className="text-[11px] text-brand-muted font-mono truncate mt-0.5">
                   {member.email}
-                </p>
+                </p> */}
               </div>
             </div>
           ))}
