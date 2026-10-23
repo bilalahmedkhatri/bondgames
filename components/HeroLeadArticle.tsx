@@ -66,9 +66,9 @@ export function HeroLeadArticle({ article, className = '' }: HeroLeadArticleProp
 
           {/* Heading */}
           <Link href={`/news/${article.slug}`}>
-            <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight hover:text-brand-red transition-colors cursor-pointer line-clamp-3">
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight hover:text-brand-red transition-colors cursor-pointer line-clamp-3">
               {article.title}
-            </h1>
+            </h2>
           </Link>
 
           {/* Subtitle / Excerpt */}

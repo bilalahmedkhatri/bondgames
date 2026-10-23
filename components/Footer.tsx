@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Send, CheckCircle2 } from 'lucide-react';
+import { partnerLinks } from '@/lib/partner-navigation';
+import { companyLinks } from '@/lib/company-navigation';
 
 export function Footer() {
   const [email, setEmail] = useState('');
@@ -40,7 +42,7 @@ export function Footer() {
               GamerGrid is a high-performance independent gaming journalism and review portal dedicated to unbiased evaluations, hardware benchmark teardowns, and breaking video game news.
             </p>
             <div className="pt-2 text-[11px] font-mono text-slate-400">
-              Tested on PS5 Pro, PC (RTX 4090/5090), Xbox Series X & Nintendo Switch.
+              Covering PC, PlayStation, Xbox & Nintendo gaming.
             </div>
           </div>
 
@@ -51,7 +53,7 @@ export function Footer() {
               <li><Link href="/" className="hover:text-white transition-colors">Top Stories</Link></li>
               <li><Link href="/games" className="hover:text-white transition-colors">Game Catalogue</Link></li>
               <li><Link href="/games?sort=rating" className="hover:text-white transition-colors">Game Reviews</Link></li>
-              <li><Link href="/compare" className="hover:text-white transition-colors">Hardware Benchmarks</Link></li>
+              <li><Link href="/hardware" className="hover:text-white transition-colors">Hardware Benchmarks</Link></li>
               <li><Link href="/news" className="hover:text-white transition-colors">Live News Wire</Link></li>
             </ul>
           </div>
@@ -60,16 +62,14 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="text-white font-bold uppercase font-mono text-xs tracking-wider">Partners</h4>
             <ul className="space-y-2 text-brand-muted">
-              <li>
-                <Link href="/guest-post" className="hover:text-yellow-400 transition-colors flex items-center gap-1.5 font-semibold text-amber-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                  Write for Us ($30-$50)
-                </Link>
-              </li>
-              <li><Link href="/advertise" className="hover:text-white transition-colors">Advertise With Us</Link></li>
-              <li><Link href="/advertise" className="hover:text-white transition-colors">Media Kit & Demographics</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">Editorial Guidelines</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">Affiliate Policy</Link></li>
+              {partnerLinks.map(link => (
+                <li key={link.href}>
+                  <Link href={link.href} className={link.href === '/submit-post' ? 'hover:text-yellow-400 transition-colors flex items-center gap-1.5 font-semibold text-amber-300' : 'hover:text-white transition-colors'}>
+                    {link.href === '/submit-post' && <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />}
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -77,11 +77,7 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="text-white font-bold uppercase font-mono text-xs tracking-wider">Company & Legal</h4>
             <ul className="space-y-2 text-brand-muted">
-              <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Editorial & Tech</Link></li>
-              <li><Link href="/contact?dept=Press" className="hover:text-white transition-colors">Press & Review Codes</Link></li>
-              <li><Link href="/dashboard" className="hover:text-white transition-colors">My Profile & Wishlist</Link></li>
+              {companyLinks.map(link => <li key={link.href}><Link href={link.href} className="hover:text-white transition-colors">{link.label}</Link></li>)}
             </ul>
           </div>
         </div>

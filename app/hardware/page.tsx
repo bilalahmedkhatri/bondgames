@@ -1,4 +1,6 @@
 import React from 'react';
+import { pageMetadata } from '@/lib/seo';
+
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -7,6 +9,8 @@ import { ArticleCard } from '@/components/ArticleCard';
 import { getArticles } from '@/lib/db/articles';
 import { INITIAL_BENCHMARKS, INITIAL_HARDWARE_COMPARISON } from '@/lib/db/seed-data';
 import { Cpu, Zap, HardDrive, CheckCircle2, Sliders, ShieldAlert } from 'lucide-react';
+
+export const metadata = pageMetadata({"title":"Gaming Hardware Comparisons & Benchmarks","description":"Compare gaming hardware specifications and explore GPU comparisons, PC performance breakdowns and game system requirements.","path":"/hardware"});
 
 export default async function HardwarePage() {
   const articles = await getArticles({ category: 'Hardware' });
@@ -38,7 +42,7 @@ export default async function HardwarePage() {
           GPU Benchmarks, Console Teardowns & Architecture Showdowns
         </h1>
         <p className="text-sm text-brand-muted mt-1 max-w-3xl">
-          Independent frame time measurements, path-tracing stress tests, and side-by-side component comparisons measured with frame-capture hardware.
+          Explore side-by-side component specifications and illustrative gaming performance comparisons. The current benchmark figures are seed data, not verified lab measurements.
         </p>
       </div>
 
@@ -54,7 +58,7 @@ export default async function HardwarePage() {
             </h2>
           </div>
           <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg font-bold">
-            Lab Certified Analysis
+            Illustrative Comparison Data
           </span>
         </div>
 

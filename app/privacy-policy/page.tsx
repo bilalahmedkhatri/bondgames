@@ -1,5 +1,9 @@
 import React from 'react';
+import { pageMetadata } from '@/lib/seo';
+
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+
+export const metadata = pageMetadata({"title":"Privacy Policy","description":"Learn how GamerGrid handles personal information, cookies, community submissions and privacy requests.","path":"/privacy-policy"});
 
 export default function PrivacyPolicyPage() {
   return (

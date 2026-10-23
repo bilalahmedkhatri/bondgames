@@ -49,7 +49,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     { label: '#PS5Pro', query: 'PS5 Pro', href: '/news/gta-vi-leaks-ps5-pro-60fps' },
     { label: '#EldenRing', query: 'Elden Ring', href: '/games/elden-ring-shadow-of-the-erdtree' },
     { label: '#MonsterHunter', query: 'Monster Hunter', href: '/games/monster-hunter-wilds' },
-    { label: '#Benchmarks', query: 'Benchmarks', href: '/compare' }
+    { label: '#Benchmarks', query: 'Benchmarks', href: '/hardware' }
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -133,7 +133,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <ArrowRight className="w-3 h-3 text-brand-muted group-hover:text-white" />
           </Link>
           <Link
-            href="/compare"
+            href="/hardware"
             onClick={onClose}
             className="p-2.5 rounded bg-black/40 border border-brand-border hover:border-brand-cyan hover:bg-brand-surfaceHover transition-colors flex items-center justify-between group"
           >

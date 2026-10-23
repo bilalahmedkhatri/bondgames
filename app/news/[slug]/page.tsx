@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { cache } from 'react';
+import { absoluteUrl, isoDate, pageMetadata, SITE_NAME } from '@/lib/seo';
+import { JsonLd } from '@/components/JsonLd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -18,9 +20,22 @@ interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
+const getArticle = cache(getArticleBySlug);
+
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const { slug } = await params;
+  const article = await getArticle(slug);
+  if (!article) notFound();
+  const metadata = pageMetadata({ title: article.title, description: article.excerpt, path: `/news/${article.slug}`, image: article.coverImage || article.thumbnail });
+  return {
+    ...metadata, authors: [{ name: article.author }],
+    openGraph: { ...metadata.openGraph, type: 'article' as const, publishedTime: isoDate(article.publishedAt), authors: [article.author], section: article.category, tags: article.tags },
+  };
+}
+
 export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getArticle(slug);
 
   if (!article) {
     notFound();
@@ -48,6 +63,14 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
   return (
     <article className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-8">
+      <JsonLd data={{
+        '@context': 'https://schema.org', '@type': article.category === 'News' ? 'NewsArticle' : 'Article',
+        headline: article.title, description: article.excerpt,
+        image: [article.coverImage || article.thumbnail], datePublished: isoDate(article.publishedAt),
+        author: { '@type': 'Person', name: article.author },
+        publisher: { '@type': 'Organization', name: SITE_NAME, url: absoluteUrl('/') },
+        mainEntityOfPage: absoluteUrl(`/news/${article.slug}`), articleSection: article.category, inLanguage: 'en',
+      }} />
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[

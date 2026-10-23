@@ -1,4 +1,6 @@
 import React from 'react';
+import { pageMetadata } from '@/lib/seo';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -6,6 +8,8 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ArticleCard } from '@/components/ArticleCard';
 import { getArticles } from '@/lib/db/articles';
 import { Tag, ExternalLink, Percent, Clock, Sparkles } from 'lucide-react';
+
+export const metadata = pageMetadata({"title":"Gaming Deals & Store Offers","description":"Browse featured PC and console game deals and follow store links to check current prices, availability and offers.","path":"/deals"});
 
 interface DealItem {
   id: string;

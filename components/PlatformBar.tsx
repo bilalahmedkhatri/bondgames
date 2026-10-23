@@ -10,7 +10,7 @@ export function PlatformBar() {
     { label: 'PS5 Pro', href: '/games?platform=ps5', icon: Gamepad2, color: 'text-indigo-400' },
     { label: 'Xbox Series X', href: '/games?platform=xbox', icon: Gamepad2, color: 'text-emerald-400' },
     { label: 'Switch 2', href: '/games?platform=switch', icon: Gamepad2, color: 'text-rose-400' },
-    { label: 'Tech & GPUs', href: '/compare', icon: Cpu, color: 'text-amber-400' },
+    { label: 'Tech & GPUs', href: '/hardware', icon: Cpu, color: 'text-amber-400' },
     { label: 'Top Metascores', href: '/games?sort=rating', icon: ShieldCheck, color: 'text-brand-red' }
   ];
 

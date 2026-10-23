@@ -2,6 +2,22 @@
    lib/types.ts  — Canonical data models
    ───────────────────────────────────────────────── */
 
+export interface PartnerPageSection {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  items?: string[];
+}
+
+export interface PartnerPageContent {
+  path: string;
+  title: string;
+  description: string;
+  introduction: string;
+  sections: PartnerPageSection[];
+  contact: { title: string; description: string; label: string; href: string };
+}
+
 export interface Game {
   id: string;
   slug: string;

@@ -1,4 +1,7 @@
 import React from 'react';
+import { JsonLd } from '@/components/JsonLd';
+import { absoluteUrl, pageMetadata, SITE_NAME } from '@/lib/seo';
+
 import Link from 'next/link';
 import { getArticles } from '@/lib/db/articles';
 import { getGames } from '@/lib/db/games';
@@ -29,6 +32,8 @@ import {
   Gamepad2,
 } from 'lucide-react';
 
+export const metadata = pageMetadata({"title":"Gaming News, Game Reviews & Hardware","description":"Gaming news, game reviews, PC system requirements, hardware comparisons and gaming deals for PC, PlayStation, Xbox and Nintendo players.","path":"/"});
+
 export default async function HomePage() {
   const [articles, games, poll] = await Promise.all([
     getArticles(),
@@ -52,6 +57,11 @@ export default async function HomePage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-12">
+      <h1 className="sr-only">Gaming News, Game Reviews & Hardware Comparisons</h1>
+      <JsonLd data={{ '@context': 'https://schema.org', '@graph': [
+        { '@type': 'WebSite', '@id': absoluteUrl('/#website'), name: SITE_NAME, url: absoluteUrl('/'), inLanguage: 'en', publisher: { '@id': absoluteUrl('/#organization') } },
+        { '@type': 'Organization', '@id': absoluteUrl('/#organization'), name: SITE_NAME, url: absoluteUrl('/') },
+      ] }} />
       {/* ── SECTION 1: ASYMMETRICAL HERO WITH BREAKING FEED ─────────── */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Main Lead Story */}

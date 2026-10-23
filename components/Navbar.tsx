@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, PenTool, User, Menu, X } from 'lucide-react';
+import { Search, User, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onOpenSearch?: () => void;
@@ -13,12 +13,12 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
+  const navLinks: { label: string; href: string; highlight?: boolean }[] = [
     { label: 'Home', href: '/' },
     { label: 'Games', href: '/games' },
     { label: 'News Feed', href: '/news' },
-    { label: 'Benchmarks & Compare', href: '/compare' },
-    { label: 'Guest Post', href: '/guest-post', highlight: true },
+    { label: 'Benchmarks & Compare', href: '/hardware' },
+    // { label: 'Guest Post', href: '/submit-post', highlight: true },
     { label: 'Advertise', href: '/advertise' }
   ];
 
@@ -26,7 +26,7 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
     <header className="sticky top-0 z-40 bg-brand-bg/95 backdrop-blur-md border-b border-brand-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          
+
           {/* Logo & Main Nav */}
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2.5 group">
@@ -45,13 +45,12 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3.5 py-2 rounded-md transition-all ${
-                      isActive
+                    className={`px-3.5 py-2 rounded-md transition-all ${isActive
                         ? 'text-white bg-brand-surface border-b-2 border-brand-red font-extrabold'
                         : link.highlight
-                        ? 'text-amber-400 hover:text-amber-300 hover:bg-brand-surface'
-                        : 'text-brand-muted hover:text-white hover:bg-brand-surface/60'
-                    }`}
+                          ? 'text-amber-400 hover:text-amber-300 hover:bg-brand-surface'
+                          : 'text-brand-muted hover:text-white hover:bg-brand-surface/60'
+                      }`}
                   >
                     {link.label}
                   </Link>
@@ -74,15 +73,6 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
                 ⌘K
               </kbd>
             </button>
-
-            {/* Write for Us Button */}
-            <Link
-              href="/guest-post"
-              className="hidden sm:inline-flex items-center gap-1.5 bg-brand-surface hover:bg-brand-border text-yellow-400 text-xs font-bold uppercase tracking-wider px-3.5 py-2 rounded-lg border border-brand-border transition-colors"
-            >
-              <PenTool className="w-3.5 h-3.5 text-brand-red" />
-              <span>Write for Us</span>
-            </Link>
 
             {/* Dashboard / Profile */}
             <Link

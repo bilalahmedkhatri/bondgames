@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Syne } from 'next/font/google';
 import './globals.css';
 import { ClientShell } from '@/components/ClientShell';
+import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, isPreview } from '@/lib/seo';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -18,18 +19,20 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'GamerGrid | High-End Gaming News, Reviews & Benchmarks',
     template: '%s | GamerGrid',
   },
   description:
-    'The premier destination for gaming news, unbiased game reviews, hardware benchmarks, and gaming deals. Powered by Neon Postgres.',
+    SITE_DESCRIPTION,
+  robots: { index: !isPreview, follow: true },
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION, yandex: process.env.YANDEX_SITE_VERIFICATION },
   keywords: ['gaming news', 'game reviews', 'hardware benchmarks', 'PC gaming', 'PS5', 'Xbox'],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://gamergrid.io',
-    siteName: 'GamerGrid',
+    siteName: SITE_NAME,
     title: 'GamerGrid | High-End Gaming News, Reviews & Benchmarks',
     description: 'Premier gaming journalism, hardware teardowns, and review scores.',
   },

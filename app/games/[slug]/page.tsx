@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { cache } from 'react';
+import { absoluteUrl, pageMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/JsonLd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -27,9 +29,18 @@ interface GamePageProps {
   params: Promise<{ slug: string }>;
 }
 
+const getGame = cache(getGameBySlug);
+
+export async function generateMetadata({ params }: GamePageProps) {
+  const { slug } = await params;
+  const game = await getGame(slug);
+  if (!game) notFound();
+  return pageMetadata({ title: `${game.title} — Game Details & PC Requirements`, description: game.excerpt, path: `/games/${game.slug}`, image: game.heroImage || game.coverImage });
+}
+
 export default async function GameDetailPage({ params }: GamePageProps) {
   const { slug } = await params;
-  const game = await getGameBySlug(slug);
+  const game = await getGame(slug);
 
   if (!game) {
     notFound();
@@ -55,6 +66,13 @@ export default async function GameDetailPage({ params }: GamePageProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-10">
+      <JsonLd data={{
+        '@context': 'https://schema.org', '@type': 'VideoGame',
+        name: game.title, description: game.excerpt, image: game.heroImage || game.coverImage,
+        url: absoluteUrl(`/games/${game.slug}`), genre: game.genres, gamePlatform: game.platforms,
+        author: { '@type': 'Organization', name: game.developer },
+        publisher: { '@type': 'Organization', name: game.publisher },
+      }} />
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[

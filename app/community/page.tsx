@@ -1,4 +1,6 @@
 import React from 'react';
+import { pageMetadata } from '@/lib/seo';
+
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -6,6 +8,8 @@ import { CommunityPoll } from '@/components/CommunityPoll';
 import { getPoll } from '@/lib/db/poll';
 import { getGames } from '@/lib/db/games';
 import { Users, MessageSquare, ThumbsUp, Flame, ExternalLink } from 'lucide-react';
+
+export const metadata = pageMetadata({"title":"Gaming Community & Polls","description":"Join gaming discussions, explore community debates and vote in the GamerGrid gaming poll.","path":"/community"});
 
 export default async function CommunityPage() {
   const [poll, games] = await Promise.all([getPoll(), getGames()]);

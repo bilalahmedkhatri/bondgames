@@ -1,4 +1,6 @@
 import React from 'react';
+import { pageMetadata } from '@/lib/seo';
+
 import { getArticles } from '@/lib/db/articles';
 import { getGames } from '@/lib/db/games';
 import { getPoll } from '@/lib/db/poll';
@@ -9,6 +11,14 @@ import { HeroLeadArticle } from '@/components/HeroLeadArticle';
 import { Sidebar } from '@/components/Sidebar';
 import { CategoryBadge } from '@/components/ui/CategoryBadge';
 import Link from 'next/link';
+
+export async function generateMetadata({ searchParams }: NewsPageProps) {
+  const params = await searchParams;
+  const filtered = Boolean(params.category && params.category.toLowerCase() !== 'all');
+  const metadata = pageMetadata({"title":"Gaming News & Industry Reports","description":"Read gaming news, hardware reports, game previews, features and industry updates from GamerGrid.","path":"/news", noIndex: filtered });
+  if (filtered) delete metadata.alternates;
+  return metadata;
+}
 
 interface NewsPageProps {
   searchParams: Promise<{ category?: string }>;

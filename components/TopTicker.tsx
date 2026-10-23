@@ -40,7 +40,7 @@ export function TopTicker() {
                 Cyberpunk 2077 Sequel 'Project Orion' Enters Full Pre-Production
               </Link>
               <span>•</span>
-              <Link href="/compare" className="hover:text-white transition-colors">
+              <Link href="/hardware" className="hover:text-white transition-colors">
                 Steam Deck OLED vs ROG Ally X: 6-Month Reliability Verdict
               </Link>
             </div>

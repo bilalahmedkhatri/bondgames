@@ -1,4 +1,6 @@
 import React from 'react';
+import { pageMetadata } from '@/lib/seo';
+
 import Link from 'next/link';
 import { getGames } from '@/lib/db/games';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -7,6 +9,14 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { FilterBar } from '@/components/FilterBar';
 import { Flame, SlidersHorizontal, Gamepad2 } from 'lucide-react';
+
+export async function generateMetadata({ searchParams }: GamesPageProps) {
+  const params = await searchParams;
+  const filtered = Boolean(params.q?.trim() || [params.genre, params.platform, params.status].some(value => value && value.toLowerCase() !== 'all'));
+  const metadata = pageMetadata({"title":"Game Reviews, Platforms & PC Requirements","description":"Explore game details, editorial scores, supported platforms and PC system requirements in the GamerGrid catalogue.","path":"/games", noIndex: filtered });
+  if (filtered) delete metadata.alternates;
+  return metadata;
+}
 
 interface GamesPageProps {
   searchParams: Promise<{

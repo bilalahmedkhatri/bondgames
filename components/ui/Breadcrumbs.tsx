@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, Home } from 'lucide-react';
+import { JsonLd } from '@/components/JsonLd';
+import { absoluteUrl } from '@/lib/seo';
 
 export interface BreadcrumbItem {
   label: string;
@@ -15,6 +17,13 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb" className={`flex items-center text-xs font-mono text-brand-muted ${className}`}>
+      <JsonLd data={{
+        '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+        itemListElement: [{ label: 'Home', href: '/' }, ...items].map((item, index) => ({
+          '@type': 'ListItem', position: index + 1, name: item.label,
+          ...(item.href ? { item: absoluteUrl(item.href) } : {}),
+        })),
+      }} />
       <ol className="flex items-center gap-1.5 flex-wrap">
         <li>
           <Link

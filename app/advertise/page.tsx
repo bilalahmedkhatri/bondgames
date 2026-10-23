@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Button } from '@/components/ui/Button';
 import { Send, CheckCircle2, TrendingUp, Users, Monitor, Award } from 'lucide-react';
@@ -17,10 +18,10 @@ export default function AdvertisePage() {
   const [error, setError] = useState('');
 
   const stats = [
-    { label: 'Monthly Pageviews', value: '4.2M', icon: Monitor },
-    { label: 'Unique Readers', value: '1.8M', icon: Users },
-    { label: 'Avg Session Duration', value: '4m 32s', icon: TrendingUp },
-    { label: 'Core Enthusiast Ratio', value: '88%', icon: Award },
+    { label: 'Monthly Pageviews', value: 'Not verified', icon: Monitor },
+    { label: 'Unique Readers', value: 'Not verified', icon: Users },
+    { label: 'Avg Session Duration', value: 'Not verified', icon: TrendingUp },
+    { label: 'Core Enthusiast Ratio', value: 'Not verified', icon: Award },
   ];
 
   async function handleSubmit(e: React.FormEvent) {
@@ -70,11 +71,12 @@ export default function AdvertisePage() {
           Partner & Media Kit
         </span>
         <h1 className="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Showcase Your Brand to the World's Most Passionate Gamers
+          Showcase Your Brand to Gaming Enthusiasts
         </h1>
         <p className="text-sm sm:text-base text-brand-muted leading-relaxed">
           From sponsored GPU teardowns to high-visibility takeovers, connect directly with tech-forward hardware buyers and gamers.
         </p>
+        <Link href="/media-kit" className="inline-flex text-sm font-semibold text-brand-cyan underline underline-offset-4 hover:text-white">View the media kit & audience information</Link>
       </div>
 
       {/* Media Kit Metric Cards */}
@@ -87,7 +89,7 @@ export default function AdvertisePage() {
               className="bg-brand-surface border border-brand-border rounded-2xl p-6 text-center space-y-2 shadow-xl"
             >
               <Icon className="w-6 h-6 text-brand-cyan mx-auto mb-1" />
-              <p className="font-heading text-2xl sm:text-3xl font-black text-white font-mono">
+              <p className="font-heading text-lg sm:text-xl font-black text-white font-mono">
                 {s.value}
               </p>
               <p className="text-xs font-mono uppercase text-brand-muted">
