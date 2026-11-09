@@ -10,8 +10,8 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
     content: 'If GTA VI actually manages a rock-solid 60fps with PSSR on PS5 Pro, it is going to sell millions of upgrade consoles overnight. Rockstar physics are notoriously CPU heavy though, so fingers crossed the Zen 2 clock boost holds up.',
     createdAt: 'Oct 22, 2026',
-    upvotes: 412,
-    downvotes: 12,
+    upvotes: 25,
+    downvotes: 2,
   },
   {
     id: 'c-2',
@@ -21,8 +21,8 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80',
     content: 'PSSR looks impressive in Spider-Man 2 and Rebirth, but a fully dynamic simulation like GTA with thousands of reactive pedestrians, volumetric weather, and traffic AI is the ultimate crucible.',
     createdAt: 'Oct 22, 2026',
-    upvotes: 289,
-    downvotes: 8,
+    upvotes: 22,
+    downvotes: 3,
   },
   {
     id: 'c-3',
@@ -32,8 +32,8 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
     content: '20 million copies without a single microtransaction or battle pass! Hopefully Western publishers take notes: make a complete, polished, beautiful game and gamers will gladly pay full price on day one.',
     createdAt: 'Oct 22, 2026',
-    upvotes: 541,
-    downvotes: 9,
+    upvotes: 13,
+    downvotes: 1,
   },
   {
     id: 'c-4',
@@ -43,7 +43,7 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
     content: 'Chapter 3 and Chapter 4 blew my mind. The boss fights with Yellow Wind Sage and Hundred-Eyed Daoist Master had me clenching my teeth for hours. Thrust stance is severely underrated for breaking posture!',
     createdAt: 'Oct 21, 2026',
-    upvotes: 312,
+    upvotes: 30,
     downvotes: 6,
   },
   {
@@ -54,7 +54,7 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80',
     content: 'The level where you turn into a sponge and soak up water to put out flames made me giggle like I was 8 years old playing Mario 64. Team ASOBI saved 2024 for me. Pure unadulterated joy.',
     createdAt: 'Oct 21, 2026',
-    upvotes: 420,
+    upvotes: 34,
     downvotes: 4,
   },
   {
@@ -65,7 +65,7 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=120&q=80',
     content: 'Messmer the Impaler is easily top 3 FromSoft bosses of all time. The phase transition music gave me chills. Make sure you collect Scadutree fragments early though — going into Belurat at blessing level 1 was pure suicide haha.',
     createdAt: 'Oct 20, 2026',
-    upvotes: 278,
+    upvotes: 40,
     downvotes: 11,
   },
   {
@@ -76,8 +76,8 @@ let commentsStore: Comment[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=120&q=80',
     content: 'A 512-bit bus with 32GB GDDR7 is an absolute monster. The memory bandwidth alone will eliminate all VRAM bottlenecks in 4K path tracing. Better start saving for a 1200W ATX 3.1 power supply though.',
     createdAt: 'Oct 22, 2026',
-    upvotes: 184,
-    downvotes: 5,
+    upvotes: 14,
+    downvotes: 0,
   },
 ];
 

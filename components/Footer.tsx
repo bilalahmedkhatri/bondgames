@@ -121,13 +121,12 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-brand-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono">
           <div>
-            © 2026 BondsGame Media Network Inc. All rights reserved.
+            © 2026 <Link href="https:www.azeemlab.com/en">Azeemlab</Link> & BondsGame Media Network Inc. All rights reserved.
           </div>
           <div className="flex items-center gap-6 text-brand-muted">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Support</Link>
-            <span className="text-brand-red font-bold">Neon Postgres Connected</span>
           </div>
         </div>
 

@@ -82,16 +82,18 @@ export interface Article {
   content: string;
   thumbnail: string;             // used in cards
   coverImage: string;            // used in hero / full page
-  category: 'News' | 'Hardware' | 'Review' | 'Preview' | 'Industry' | 'Deals' | 'Feature';
+  category: string;
   platform?: string;
   author: string;                // author display name
   authorAvatar?: string;
   authorRole?: string;
+  authorDescription?: string;
   publishedAt: string;
   readTime: number;              // minutes (number, not string)
   commentCount: number;
   viewCount: number;
   tags: string[];
+  highlights?: string[];
   isLead?: boolean;
   isBreaking?: boolean;
   isFeatured?: boolean;

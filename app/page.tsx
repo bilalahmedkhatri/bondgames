@@ -43,10 +43,15 @@ export default async function HomePage() {
 
   const leadArticle = articles.find((a) => a.isLead) || articles[0];
   const sideArticles = articles.filter((a) => a.id !== leadArticle?.id).slice(0, 4);
-  const reviewArticles = articles.filter((a) => a.category === 'Review');
-  const hardwareArticles = articles.filter((a) => a.category === 'Hardware');
-  const latestArticles = articles.slice(0, 6);
-  const featuredGames = games.filter((g) => g.isFeatured || g.score >= 9.2).slice(0, 4);
+  const heroArticleIds = new Set([leadArticle?.id, ...sideArticles.map(article => article.id)]);
+  const latestArticles = articles.filter(article => !heroArticleIds.has(article.id)).slice(0, 6);
+  const shownArticleIds = new Set([...heroArticleIds, ...latestArticles.map(article => article.id)]);
+  const sidebarArticles = articles.filter(article => !shownArticleIds.has(article.id)).slice(0, 4);
+  const trendingGames = games.filter(game => game.trending || game.score >= 9.0).slice(0, 6);
+  const trendingIds = new Set(trendingGames.map(game => game.id));
+  const featuredGames = games.filter(game => !trendingIds.has(game.id) && (game.isFeatured || game.score >= 9.2)).slice(0, 4);
+  const shownGameIds = new Set([...trendingIds, ...featuredGames.map(game => game.id)]);
+  const sidebarGames = games.filter(game => !shownGameIds.has(game.id)).slice(0, 4);
 
   // Formatted benchmark items for the chart
   const benchmarkResults = INITIAL_BENCHMARKS.map((b) => ({
@@ -67,12 +72,12 @@ export default async function HomePage() {
       {/* ── SECTION 1: ASYMMETRICAL HERO WITH BREAKING FEED ─────────── */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Main Lead Story */}
-        <div className="lg:col-span-8 flex flex-col">
+        <div className={`${sideArticles.length > 0 ? 'lg:col-span-8' : 'lg:col-span-12'} flex flex-col`}>
           {leadArticle && <HeroLeadArticle article={leadArticle} />}
         </div>
 
         {/* Live News Feed Sidebar */}
-        <div className="lg:col-span-4 bg-brand-surface border border-brand-border rounded-2xl p-5 flex flex-col justify-between shadow-xl">
+        {sideArticles.length > 0 && <div className="lg:col-span-4 bg-brand-surface border border-brand-border rounded-2xl p-5 flex flex-col justify-between shadow-xl">
           <div className="border-b border-brand-border pb-3 mb-3 flex items-center justify-between">
             <h2 className="font-heading text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
@@ -112,14 +117,14 @@ export default async function HomePage() {
               <ArrowRight className="w-3.5 h-3.5 text-brand-red" />
             </Link>
           </div>
-        </div>
+        </div>}
       </section>
 
       {/* ── SECTION 2: TRENDING TITLES RAIL ──────────────────────────── */}
-      <TrendingGamesRail games={games} />
+      {trendingGames.length > 0 && <TrendingGamesRail games={trendingGames} />}
 
       {/* ── SECTION 3: EDITORIAL SPOTLIGHT & REVIEWS ─────────────────── */}
-      <section className="space-y-6">
+      {featuredGames.length > 0 && <section className="space-y-6">
         <SectionHeader
           title="Editors' Choice & Critical Acclaim"
           subtitle="The highest-rated games of this generation, meticulously tested and scored."
@@ -133,7 +138,7 @@ export default async function HomePage() {
             <GameCard key={game.id} game={game} variant="default" />
           ))}
         </div>
-      </section>
+      </section>}
 
       {/* ── SECTION 4: HARDWARE LAB & REAL-TIME BENCHMARKS ───────────── */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -241,7 +246,7 @@ export default async function HomePage() {
       {/* ── SECTION 5: LATEST ARTICLES & COMMUNITY SIDEBAR ───────────── */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left: Latest Articles Grid */}
-        <div className="lg:col-span-8 space-y-6">
+        {latestArticles.length > 0 && <div className="lg:col-span-8 space-y-6">
           <SectionHeader
             title="In-Depth Features & Investigative Journalism"
             subtitle="Unbiased gaming critiques, developer post-mortems, and market analysis."
@@ -255,10 +260,10 @@ export default async function HomePage() {
               <ArticleCard key={article.id} article={article} variant="feature" />
             ))}
           </div>
-        </div>
+        </div>}
 
         {/* Right: Sidebar with Community Poll and Trending */}
-        <div className="lg:col-span-4 space-y-8">
+        <div className={`${latestArticles.length > 0 ? 'lg:col-span-4' : 'lg:col-span-12'} space-y-8`}>
           {poll && (
             <CommunityPoll
               pollId={poll.id || 'goty-poll'}
@@ -269,8 +274,8 @@ export default async function HomePage() {
           )}
 
           <Sidebar
-            trendingGames={games.slice(0, 4)}
-            recentArticles={articles.slice(2, 6)}
+            trendingGames={sidebarGames}
+            recentArticles={sidebarArticles}
           />
         </div>
       </section>

@@ -2,6 +2,16 @@ import React from 'react';
 import Image from 'next/image';
 import { Clock, Calendar, CheckCircle2 } from 'lucide-react';
 
+const publicationDateTime = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: '2-digit',
+  timeZone: 'UTC',
+  timeZoneName: 'short',
+});
+
 interface AuthorBylineProps {
   author: string;
   authorAvatar?: string;
@@ -21,6 +31,9 @@ export function AuthorByline({
   className = '',
   showAvatar = true,
 }: AuthorBylineProps) {
+  const date = new Date(publishedAt);
+  const hasValidDate = Number.isFinite(date.getTime());
+
   return (
     <div className={`flex items-center gap-3 text-xs text-brand-muted ${className}`}>
       {showAvatar && (
@@ -44,19 +57,18 @@ export function AuthorByline({
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2 text-[11px] font-mono text-brand-muted mt-0.5">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-mono text-brand-muted mt-0.5">
           <span className="flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
-            {publishedAt}
+            <Calendar className="w-3 h-3 shrink-0" />
+            {hasValidDate ? (
+              <time dateTime={date.toISOString()}>{publicationDateTime.format(date)}</time>
+            ) : publishedAt}
           </span>
           {typeof readTime === 'number' && (
-            <>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3 text-brand-amber" />
-                {readTime} min read
-              </span>
-            </>
+            <span className="flex items-center gap-1 whitespace-nowrap">
+              <Clock className="w-3 h-3 text-brand-amber" />
+              {readTime} min read
+            </span>
           )}
         </div>
       </div>

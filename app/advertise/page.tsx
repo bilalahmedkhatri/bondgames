@@ -70,7 +70,7 @@ export default function AdvertisePage() {
         <span className="text-xs font-mono font-bold uppercase tracking-widest text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/30 px-3 py-1 rounded-full">
           Partner & Media Kit
         </span>
-        <h1 className="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="font-heading text-3xl pt-3 sm:text-5xl font-black text-white tracking-tight">
           Showcase Your Brand to Gaming Enthusiasts
         </h1>
         <p className="text-sm sm:text-base text-brand-muted leading-relaxed">

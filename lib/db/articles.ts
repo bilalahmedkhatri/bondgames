@@ -12,103 +12,29 @@ export interface ArticleFilterOptions {
   limit?: number;
 }
 
+// Existing UI entry points now read the reusable published-only blog module.
 export async function getArticles(options: ArticleFilterOptions = {}): Promise<Article[]> {
-  const neonResults = await runNeonQuery<any>(`
-    SELECT * FROM articles ORDER BY published_at DESC
-  `);
-
-  let list = neonResults && neonResults.length > 0
-    ? neonResults.map(r => ({
-        id: r.id,
-        slug: r.slug,
-        title: r.title,
-        subtitle: r.subtitle,
-        excerpt: r.excerpt,
-        content: r.content,
-        thumbnail: r.thumbnail || r.cover_image,
-        coverImage: r.cover_image,
-        category: r.category,
-        platform: r.platform,
-        author: r.author,
-        authorAvatar: r.author_avatar,
-        authorRole: r.author_role,
-        publishedAt: r.published_at,
-        readTime: Number(r.read_time),
-        commentCount: r.comment_count,
-        viewCount: r.view_count,
-        tags: r.tags || [],
-        isLead: r.is_lead,
-        isBreaking: r.is_breaking
-      } as Article))
-    : [...articlesStore];
-
-  if (options.category && options.category !== 'all') {
-    list = list.filter(a => a.category.toLowerCase() === options.category?.toLowerCase());
+  const { listPosts } = await import('../blog/queries');
+  const { postArticle } = await import('../blog/adapter');
+  const result = await listPosts('en', 1, options.limit || 48, options.category && options.category !== 'all' ? options.category.toLowerCase() : undefined);
+  let articles = result.posts.map(post => postArticle(post));
+  if (options.query) {
+    const query = options.query.trim().toLowerCase();
+    articles = articles.filter(post => `${post.title} ${post.excerpt}`.toLowerCase().includes(query));
   }
-
-  if (options.platform && options.platform !== 'all') {
-    const pLower = options.platform.toLowerCase();
-    list = list.filter(a => a.platform && a.platform.toLowerCase().includes(pLower));
-  }
-
-  if (options.tag && options.tag !== 'all') {
-    const tLower = options.tag.toLowerCase().replace('#', '');
-    list = list.filter(a => a.tags.some(tag => tag.toLowerCase().includes(tLower)));
-  }
-
-  if (options.query && options.query.trim().length > 0) {
-    const qLower = options.query.toLowerCase().trim();
-    list = list.filter(a =>
-      a.title.toLowerCase().includes(qLower) ||
-      a.excerpt.toLowerCase().includes(qLower) ||
-      a.tags.some(t => t.toLowerCase().includes(qLower))
-    );
-  }
-
-  if (options.limit && options.limit > 0) {
-    list = list.slice(0, options.limit);
-  }
-
-  return list;
+  if (options.platform) articles = articles.filter(post => post.platform === options.platform);
+  if (options.tag) articles = articles.filter(post => post.tags.includes(options.tag!));
+  return articles;
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const neonResult = await runNeonQuery<any>(
-    'SELECT * FROM articles WHERE slug = $1 LIMIT 1',
-    [slug]
-  );
-
-  if (neonResult && neonResult.length > 0) {
-    const r = neonResult[0];
-    return {
-      id: r.id,
-      slug: r.slug,
-      title: r.title,
-      subtitle: r.subtitle,
-      excerpt: r.excerpt,
-      content: r.content,
-      thumbnail: r.thumbnail || r.cover_image,
-      coverImage: r.cover_image,
-      category: r.category,
-      platform: r.platform,
-      author: r.author,
-      authorAvatar: r.author_avatar,
-      authorRole: r.author_role,
-      publishedAt: r.published_at,
-      readTime: Number(r.read_time),
-      commentCount: r.comment_count,
-      viewCount: r.view_count,
-      tags: r.tags || [],
-      isLead: r.is_lead,
-      isBreaking: r.is_breaking
-    };
-  }
-
-  const found = articlesStore.find(a => a.slug === slug);
-  return found || null;
+  const { getPost } = await import('../blog/queries');
+  const { postArticle } = await import('../blog/adapter');
+  const result = await getPost('en', slug);
+  return result ? postArticle(result.post, result.document) : null;
 }
 
-export async function getLeadArticle(): Promise<Article> {
+export async function getLeadArticle(): Promise<Article | undefined> {
   const articles = await getArticles();
   const lead = articles.find(a => a.isLead);
   return lead || articles[0];

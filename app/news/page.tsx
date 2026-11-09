@@ -1,40 +1,44 @@
 import React from 'react';
 import { pageMetadata } from '@/lib/seo';
 
-import { getArticles } from '@/lib/db/articles';
+import { listPosts, publishedCategories } from '@/lib/blog/queries';
+import { postArticle } from '@/lib/blog/adapter';
+import { blogConfig } from '@/lib/blog/config';
 import { getGames } from '@/lib/db/games';
 import { getPoll } from '@/lib/db/poll';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { SectionHeader } from '@/components/ui/SectionHeader';
+
 import { ArticleCard } from '@/components/ArticleCard';
 import { HeroLeadArticle } from '@/components/HeroLeadArticle';
 import { Sidebar } from '@/components/Sidebar';
-import { CategoryBadge } from '@/components/ui/CategoryBadge';
+
 import Link from 'next/link';
 
 export async function generateMetadata({ searchParams }: NewsPageProps) {
   const params = await searchParams;
-  const filtered = Boolean(params.category && params.category.toLowerCase() !== 'all');
+  const filtered = Boolean((params.category && params.category !== 'all') || Number(params.page || 1) > 1);
   const metadata = pageMetadata({ "title": "Gaming News & Industry Reports", "description": "Read gaming news, hardware reports, game previews, features and industry updates from BondsGame.", "path": "/news", noIndex: filtered });
   if (filtered) delete metadata.alternates;
   return metadata;
 }
 
 interface NewsPageProps {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; page?: string }>;
 }
 
 export default async function NewsHubPage({ searchParams }: NewsPageProps) {
   const params = await searchParams;
   const currentCategory = params.category || 'all';
 
-  const [allArticles, games, poll] = await Promise.all([
-    getArticles({ category: currentCategory !== 'all' ? currentCategory : undefined }),
+  const [result, databaseCategories, games, poll] = await Promise.all([
+    listPosts('en', Number(params.page || 1), blogConfig.pageSize, currentCategory !== 'all' ? currentCategory : undefined),
+    publishedCategories('en'),
     getGames(),
     getPoll(),
   ]);
 
-  const categories = ['all', 'News', 'Hardware', 'Review', 'Preview', 'Industry', 'Deals', 'Feature'];
+  const allArticles = result.posts.map(post => postArticle(post));
+  const categories = [{slug: 'all', name: 'All Dispatches'}, ...databaseCategories];
 
   const leadArticle = currentCategory === 'all' ? allArticles[0] : null;
   const gridArticles = leadArticle ? allArticles.slice(1) : allArticles;
@@ -61,18 +65,18 @@ export default async function NewsHubPage({ searchParams }: NewsPageProps) {
         {/* Category Pills */}
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => {
-            const isActive = currentCategory.toLowerCase() === cat.toLowerCase();
-            const href = cat === 'all' ? '/news' : `/news?category=${cat}`;
+            const isActive = currentCategory === cat.slug;
+            const href = cat.slug === 'all' ? '/news' : `/news?category=${encodeURIComponent(cat.slug)}`;
             return (
               <Link
-                key={cat}
+                key={cat.slug}
                 href={href}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all border ${isActive
                   ? 'bg-brand-red text-white border-brand-red shadow-lg shadow-brand-red/20'
                   : 'bg-brand-surface text-brand-muted border-brand-border hover:text-white hover:border-slate-700'
                   }`}
               >
-                {cat === 'all' ? 'All Dispatches' : cat}
+                {cat.name}
               </Link>
             );
           })}
@@ -108,7 +112,7 @@ export default async function NewsHubPage({ searchParams }: NewsPageProps) {
             ))}
           </div>
 
-          {gridArticles.length === 0 && (
+          {allArticles.length === 0 && (
             <div className="text-center py-16 bg-brand-surface border border-brand-border rounded-xl">
               <p className="text-brand-muted">No articles found in this category.</p>
               <Link href="/news" className="text-xs font-mono text-brand-cyan hover:underline mt-2 inline-block">
@@ -116,13 +120,17 @@ export default async function NewsHubPage({ searchParams }: NewsPageProps) {
               </Link>
             </div>
           )}
+          <nav aria-label="News pagination" className="flex justify-between text-brand-cyan text-sm">
+            {result.page > 1 ? <Link href={`/news?page=${result.page - 1}&category=${encodeURIComponent(currentCategory)}`}>Previous</Link> : <span />}
+            <span className="text-brand-muted">Page {result.page}</span>
+            {result.hasNext && <Link href={`/news?page=${result.page + 1}&category=${encodeURIComponent(currentCategory)}`}>Next</Link>}
+          </nav>
         </div>
 
         {/* Sidebar */}
         <div className="lg:col-span-4 space-y-8">
           <Sidebar
             trendingGames={games.slice(0, 5)}
-            recentArticles={allArticles.slice(0, 4)}
             poll={poll}
           />
         </div>

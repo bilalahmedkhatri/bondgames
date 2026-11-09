@@ -1,10 +1,11 @@
-import React, { cache } from 'react';
-import { absoluteUrl, isoDate, pageMetadata, SITE_NAME } from '@/lib/seo';
+import React from 'react';
 import { JsonLd } from '@/components/JsonLd';
 import Image from 'next/image';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getArticleBySlug, getArticles } from '@/lib/db/articles';
+import { getPost, listPosts } from '@/lib/blog/queries';
+import { postArticle } from '@/lib/blog/adapter';
+import { BlogContent } from '@/lib/blog/renderer';
+import { postSeo } from '@/lib/blog/seo';
 import { getCommentsByTarget } from '@/lib/db/comments';
 import { getGames } from '@/lib/db/games';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -14,39 +15,38 @@ import { ShareButtons } from '@/components/ui/ShareButtons';
 import { CommentSection } from '@/components/CommentSection';
 import { Sidebar } from '@/components/Sidebar';
 import { ArticleCard } from '@/components/ArticleCard';
-import { Clock, Eye, MessageSquare, Tag, CheckCircle2 } from 'lucide-react';
+import { ArticleCover } from '@/components/ArticleCover';
+import { Tag, CheckCircle2 } from 'lucide-react';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
-const getArticle = cache(getArticleBySlug);
+
 
 export async function generateMetadata({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = await getArticle(slug);
-  if (!article) notFound();
-  const metadata = pageMetadata({ title: article.title, description: article.excerpt, path: `/news/${article.slug}`, image: article.coverImage || article.thumbnail });
-  return {
-    ...metadata, authors: [{ name: article.author }],
-    openGraph: { ...metadata.openGraph, type: 'article' as const, publishedTime: isoDate(article.publishedAt), authors: [article.author], section: article.category, tags: article.tags },
-  };
+  const result = await getPost('en', slug);
+  if (!result) notFound();
+  return postSeo(result.post).metadata;
 }
 
 export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = await getArticle(slug);
+  const result = await getPost('en', slug);
+  const article = result ? postArticle(result.post, result.document) : null;
 
-  if (!article) {
+  if (!article || !result) {
     notFound();
   }
 
-  const [comments, allArticles, games] = await Promise.all([
+  const [comments, listing, games] = await Promise.all([
     getCommentsByTarget(article.id, 'article'),
-    getArticles(),
+    listPosts('en'),
     getGames(),
   ]);
 
+  const allArticles = listing.posts.map(post => postArticle(post));
   const relatedArticles = allArticles
     .filter((a) => a.id !== article.id && a.category === article.category)
     .slice(0, 3);
@@ -63,125 +63,70 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
   return (
     <article className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
-      <JsonLd data={{
-        '@context': 'https://schema.org', '@type': article.category === 'News' ? 'NewsArticle' : 'Article',
-        headline: article.title, description: article.excerpt,
-        image: [article.coverImage || article.thumbnail], datePublished: isoDate(article.publishedAt),
-        author: { '@type': 'Person', name: article.author },
-        publisher: { '@type': 'Organization', name: SITE_NAME, url: absoluteUrl('/') },
-        mainEntityOfPage: absoluteUrl(`/news/${article.slug}`), articleSection: article.category, inLanguage: 'en',
-      }} />
+      <JsonLd data={postSeo(result.post).jsonLd} />
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[
           { label: 'News Hub', href: '/news' },
-          { label: article.category, href: `/news?category=${article.category}` },
+          { label: article.category, href: `/news?category=${encodeURIComponent(result.post.category_slug || 'all')}` },
           { label: article.title },
         ]}
       />
 
-      {/* Article Header Container */}
-      <header className="space-y-4 max-w-4xl">
-        <div className="flex flex-wrap items-center gap-2">
-          <CategoryBadge label={article.category} size="md" />
-          {article.isBreaking && (
-            <span className="px-2.5 py-1 rounded bg-brand-red text-white text-[11px] font-mono font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-brand-red/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              Breaking
-            </span>
-          )}
-          {article.platform && (
-            <span className="px-2.5 py-1 rounded bg-brand-surface border border-brand-border text-brand-muted text-xs font-mono font-bold uppercase">
-              {article.platform}
-            </span>
-          )}
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="min-w-0 lg:col-span-8 space-y-8">
+          {/* Article Header Container */}
+          <header className="space-y-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <CategoryBadge label={article.category} size="md" />
+              {article.isBreaking && (
+                <span className="px-2.5 py-1 rounded bg-brand-red text-white text-[11px] font-mono font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-brand-red/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  Breaking
+                </span>
+              )}
+              {article.platform && (
+                <span className="px-2.5 py-1 rounded bg-brand-surface border border-brand-border text-brand-muted text-xs font-mono font-bold uppercase">
+                  {article.platform}
+                </span>
+              )}
+            </div>
 
-        <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] tracking-tight">
-          {article.title}
-        </h1>
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] tracking-tight">
+              {article.title}
+            </h1>
 
-        <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-          {article.subtitle}
-        </p>
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+              {article.subtitle}
+            </p>
 
-        {/* Author Byline & Article Metrics */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-brand-border">
-          <AuthorByline
-            author={article.author}
-            authorAvatar={article.authorAvatar}
-            authorRole={article.authorRole}
-            publishedAt={article.publishedAt}
-            readTime={article.readTime}
+            {/* Author Byline & Article Metrics */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-brand-border">
+              <AuthorByline
+                author={article.author}
+                authorAvatar={article.authorAvatar}
+                authorRole={article.authorRole}
+                publishedAt={article.publishedAt}
+                readTime={article.readTime}
+                showAvatar={Boolean(article.authorAvatar)}
+              />
+
+              <div className="flex items-center gap-4">
+                <ShareButtons title={article.title} />
+              </div>
+            </div>
+          </header>
+
+          {/* Featured Cover Image */}
+          <ArticleCover
+            src={article.coverImage || article.thumbnail}
+            alt={result.post.cover?.alt_text || article.title}
+            caption={result.post.cover?.caption}
+            attribution={result.post.metadata_json?.cover_attribution}
           />
 
-          <div className="flex items-center gap-4">
-            <ShareButtons title={article.title} />
-          </div>
-        </div>
-      </header>
-
-      {/* Featured Cover Image */}
-      <div className="relative aspect-[16/9] w-full max-h-[520px] rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-black">
-        <Image
-          src={article.coverImage || article.thumbnail}
-          alt={article.title}
-          fill
-          priority
-          className="object-cover"
-          sizes="(max-width: 1280px) 100vw, 1200px"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-      </div>
-
-      {/* Main Content Layout with Sticky Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        {/* Article Body */}
-        <div className="lg:col-span-8 space-y-8">
           <div className="prose prose-invert max-w-none text-slate-200 leading-relaxed space-y-6 text-base sm:text-lg">
-            {article.content.split('\n\n').map((paragraph, index) => {
-              if (paragraph.startsWith('### ')) {
-                return (
-                  <h2
-                    key={index}
-                    className="font-heading text-2xl sm:text-3xl font-extrabold text-white pt-4 pb-2 border-l-4 border-brand-red pl-3 tracking-tight"
-                  >
-                    {paragraph.replace('### ', '')}
-                  </h2>
-                );
-              }
-              if (paragraph.startsWith('- ')) {
-                const listItems = paragraph.split('\n');
-                return (
-                  <ul key={index} className="space-y-2 my-4 pl-4">
-                    {listItems.map((li, i) => (
-                      <li key={i} className="flex items-start gap-2 text-slate-300 text-base">
-                        <span className="text-brand-cyan font-bold">•</span>
-                        <span>{li.replace('- ', '')}</span>
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-              if (paragraph.match(/^\d+\.\s/)) {
-                const listItems = paragraph.split('\n');
-                return (
-                  <ol key={index} className="space-y-3 my-4 pl-4">
-                    {listItems.map((li, i) => (
-                      <li key={i} className="flex items-start gap-2 text-slate-300 text-base">
-                        <span className="text-brand-red font-mono font-bold">{i + 1}.</span>
-                        <span>{li.replace(/^\d+\.\s/, '')}</span>
-                      </li>
-                    ))}
-                  </ol>
-                );
-              }
-              return (
-                <p key={index} className="text-slate-300 leading-relaxed">
-                  {paragraph}
-                </p>
-              );
-            })}
+            <BlogContent document={result.document} assets={result.assets} />
           </div>
 
           {/* Tags */}
@@ -205,7 +150,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           <div className="p-6 rounded-2xl bg-brand-surface border border-brand-border flex flex-col sm:flex-row items-center sm:items-start gap-5 shadow-lg">
             <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-brand-red shrink-0 shadow-lg">
               <Image
-                src={article.authorAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80'}
+                src={article.authorAvatar || '/social-image'}
                 alt={article.author}
                 fill
                 className="object-cover"
@@ -222,11 +167,20 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
               <p className="text-xs font-mono text-brand-cyan uppercase">
                 {article.authorRole || 'Editorial Staff'}
               </p>
-              <p className="text-sm text-brand-muted leading-relaxed">
-                Covering technical deep-dives, industry shifts, and hardware engineering across PC and console ecosystems. BondsGame verified journalist.
-              </p>
+              {article.authorDescription && (
+                <p className="text-sm text-brand-muted leading-relaxed">{article.authorDescription}</p>
+              )}
             </div>
           </div>
+
+          {article.highlights && article.highlights.length > 0 && (
+            <aside className="rounded-2xl border border-brand-cyan/30 bg-brand-surface p-6 shadow-lg" aria-label="Article highlights">
+              <h2 className="font-heading text-lg font-bold text-white mb-3">Key highlights</h2>
+              <ul className="list-disc pl-5 space-y-2 text-slate-300 leading-relaxed">
+                {article.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+              </ul>
+            </aside>
+          )}
 
           {/* Live Discussion & Comment Section */}
           <div className="pt-6 border-t border-brand-border">
@@ -242,7 +196,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
         <div className="lg:col-span-4 space-y-8">
           <Sidebar
             trendingGames={games.slice(0, 4)}
-            recentArticles={allArticles.slice(0, 4)}
+            recentArticles={allArticles.filter(post => post.id !== article.id && !relatedArticles.some(related => related.id === post.id)).slice(0, 4)}
           />
 
           {/* Related Articles in this category */}

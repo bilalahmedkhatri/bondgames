@@ -87,7 +87,7 @@ export function ContactPageContent({ initialDepartment }: { initialDepartment: C
         <span className="text-xs font-mono font-bold uppercase tracking-widest text-brand-red bg-brand-red/10 border border-brand-red/30 px-3 py-1 rounded-full">
           Editorial Governance
         </span>
-        <h1 className="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="font-heading text-3xl pt-3 sm:text-5xl font-black text-white tracking-tight">
           Editorial Board, Press Inquiries & Direct Contact
         </h1>
         <p className="text-sm sm:text-base text-brand-muted leading-relaxed">
