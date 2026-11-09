@@ -61,7 +61,7 @@ export default async function HomePage() {
   }));
 
   return (
-    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-12">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 p-3 space-y-12 px-3">
       <h1 className="sr-only">Gaming News, Game Reviews & Hardware Comparisons</h1>
       <JsonLd data={{
         '@context': 'https://schema.org', '@graph': [

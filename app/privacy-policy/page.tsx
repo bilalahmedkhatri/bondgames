@@ -7,7 +7,7 @@ export const metadata = pageMetadata({ "title": "Privacy Policy", "description":
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="max-w-4xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
+    <div className="max-w-4xl mx-auto lg:px-0 md:px-4 p-3 space-y-8">
       <Breadcrumbs items={[{ label: 'Privacy Policy' }]} />
 
       <div className="space-y-4 border-b border-brand-border pb-6">

@@ -38,13 +38,13 @@ export default async function NewsHubPage({ searchParams }: NewsPageProps) {
   ]);
 
   const allArticles = result.posts.map(post => postArticle(post));
-  const categories = [{slug: 'all', name: 'All Dispatches'}, ...databaseCategories];
+  const categories = [{ slug: 'all', name: 'All Dispatches' }, ...databaseCategories];
 
   const leadArticle = currentCategory === 'all' ? allArticles[0] : null;
   const gridArticles = leadArticle ? allArticles.slice(1) : allArticles;
 
   return (
-    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
+    <div className="max-w-7xl mx-auto lg:px-0 md:px-4 p-3 space-y-8">
       {/* Breadcrumb Navigation */}
       <Breadcrumbs items={[{ label: 'News & Editorial Hub' }]} />
 

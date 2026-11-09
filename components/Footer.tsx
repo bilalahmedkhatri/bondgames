@@ -23,7 +23,7 @@ export function Footer() {
 
   return (
     <footer className="bg-black border-t border-brand-border mt-20 text-brand-muted text-xs">
-      <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-14 space-y-12">
+      <div className="max-w-7xl mx-auto lg:px-0 md:px-4 p-3 space-y-12">
 
         {/* Main Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
@@ -119,7 +119,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-brand-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono">
+        <div className="pt-6 border-t border-brand-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-center md:text-left">
           <div>
             © 2026 <Link href="https:www.azeemlab.com/en">Azeemlab</Link> & BondsGame Media Network Inc. All rights reserved.
           </div>

@@ -23,7 +23,7 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-40 bg-brand-bg/95 backdrop-blur-md border-b border-brand-border">
-      <div className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto lg:px-0 md:px-4 px-2">
         <div className="flex items-center justify-between h-16 sm:h-20">
 
           {/* Logo & Main Nav */}

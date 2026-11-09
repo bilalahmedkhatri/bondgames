@@ -62,7 +62,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   }));
 
   return (
-    <article className="max-w-7xl mx-auto lg:px-0 md:px-4 sm:px-6 py-6 space-y-8">
+    <article className="max-w-7xl mx-auto lg:px-0 md:px-4 p-3 space-y-8">
       <JsonLd data={postSeo(result.post).jsonLd} />
       {/* Breadcrumbs */}
       <Breadcrumbs
