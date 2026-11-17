@@ -29,18 +29,19 @@ export interface Game {
   heroImage: string;
   genres: string[];
   platforms: string[];
-  releaseDate: string;
+  releaseDate: string | null;
+  releaseWindow?: string | null;
   releaseStatus: 'Released' | 'Upcoming' | 'Early Access';
   developer: string;
   publisher: string;
-  score: number;                  // editorial score 0-10
-  rating: number;                 // alias / user rating
+  score?: number;                 // editorial score 0-10
+  rating: number | null;          // alias / user rating
   metacriticScore?: number;
   trending?: boolean;
   isFeatured?: boolean;
-  verdict: {
+  verdict?: {
     summary: string;
-    score: number;
+    score?: number;
     badge: string;                // "Must Play" | "Editors' Choice" | "Recommended" | "Skip It"
     pros: string[];
     cons: string[];
@@ -109,6 +110,7 @@ export interface Comment {
   createdAt: string;
   upvotes: number;
   downvotes: number;
+  moderationStatus?: 'pending' | 'approved' | 'rejected';
   replies?: Comment[];
 }
 
