@@ -73,7 +73,7 @@ d:/bondgame/
 │   ├── community/
 │   │   └── page.tsx            # Interactive poll, forum debates & Discord count
 │   ├── submit-post/
-│   │   └── page.tsx            # Guest post pitch & editorial tiers ($30/$50/Custom)
+│   │   └── page.tsx            # Guest post pitch & contribution tiers (Bulk $120/Standard $30/Featured $50)
 │   ├── advertise/
 │   │   └── page.tsx            # Media kit, demographic metrics & ad inquiry form
 │   ├── contact/
@@ -127,10 +127,12 @@ d:/bondgame/
 │   ├── Sidebar.tsx             # Composed right sidebar (trending games, polls, news)
 │   ├── TopTicker.tsx           # Animated breaking news ticker with live date
 │   ├── TrendingGamesRail.tsx   # Ranked (#1, #2, #3) horizontal game shelf
-│   └── VerdictCard.tsx         # Editorial review verdict box with quote & buy links
+│   ├── ContributorGuidelines.tsx  # Pricing cards (Bulk $120/5 articles, Standard $30, Featured $50) + FAQ + contact
+   └── VerdictCard.tsx         # Editorial review verdict box with quote & buy links
 │
 └── lib/
     ├── types.ts                # Canonical TypeScript models and interfaces
+    ├── contributor-guidelines.ts # Contributor FAQ, section copy, and CONTRIBUTOR_EMAIL constant
     └── db/                     # Data access & database abstraction
         ├── neon.ts             # Neon Serverless Postgres client connection
         ├── schema.sql          # Postgres SQL tables and relational constraints
@@ -185,3 +187,46 @@ When implementing features or refactoring code in this repository:
    * Ensure horizontal overflow is guarded with `.no-scrollbar` or `overflow-x-auto`.
 4. **Build Verification**:
    * Always verify that `npx tsc --noEmit` and `npm run build` pass with zero errors before concluding any significant task.
+
+---
+
+## 6. Type System Rules (`lib/types.ts`)
+
+These rules reflect hard-won fixes from production build failures — do not revert them:
+
+### `Game` interface
+| Field | Type | Note |
+| :--- | :--- | :--- |
+| `releaseDate` | `string \| null` | API may return null for unannounced titles |
+| `releaseWindow` | `string \| null` (optional) | e.g. `"Q2 2027"` — always access with optional chaining |
+| `rating` | `number \| null` | May be null before launch |
+| `score` | `number` (optional) | Editorial score; separate from `rating` |
+| `verdict` | optional (`verdict?`) | Not all seed entries have a full verdict |
+| `verdict.score` | `number` (optional) | May be omitted in seed data |
+
+### `Comment` interface
+| Field | Type | Note |
+| :--- | :--- | :--- |
+| `moderationStatus` | `'pending' \| 'approved' \| 'rejected'` (optional) | Populated by games backend API; absent in Neon/in-memory path |
+
+### `GuestPostSubmission` interface
+| `packageType` value | Description |
+| :--- | :--- |
+| `'Bulk Package ($120 / 5 articles)'` | 5 pre-purchased sponsored posts, priority scheduling |
+| `'Standard ($30)'` | Single sponsored post, do-follow link |
+| `'Featured Editorial ($50)'` | Priority + homepage + newsletter |
+| `'Enterprise Partner (Custom)'` | Negotiated custom deal |
+
+---
+
+## 7. Guest Post & Contribution System
+
+### Pricing tiers (`/submit-post` → `ContributorGuidelines`)
+* **Bulk Package — \$120 / 5 articles** (`brand-purple`) — Best Value badge, priority scheduling, dedicated account manager
+* **Standard — \$30** (`brand-amber`) — Single sponsored post, permanent do-follow link
+* **Featured Editorial — \$50** (`brand-red`) — Popular badge, homepage feature consideration, newsletter promotion
+
+All copy and FAQ content lives in `lib/contributor-guidelines.ts`. Edit that file to change pricing descriptions, word count guidance, or FAQs — do not hardcode copy inside the component.
+
+### `/advertise` page stats
+Stats are hardcoded in `app/advertise/page.tsx` (`const stats = [...]`). Update the `value` fields there when real analytics are available. Current placeholder values: **240K+ pageviews**, **98K+ unique readers**, **4m 32s avg session**, **74% enthusiast ratio**.

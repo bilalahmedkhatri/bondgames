@@ -28,7 +28,13 @@ export const metadata: Metadata = {
   description:
     SITE_DESCRIPTION,
   robots: { index: !isPreview, follow: true },
-  verification: { google: process.env.GOOGLE_SITE_VERIFICATION, yandex: process.env.YANDEX_SITE_VERIFICATION },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.YANDEX_SITE_VERIFICATION,
+    other: {
+      'ahrefs-site-verification': 'f1edd95ff6fb57cb63b960961e42ff5ddabe7b6b6de0e09e4e98d6e77181ddb6',
+    },
+  },
   keywords: ['gaming news', 'game reviews', 'hardware benchmarks', 'PC gaming', 'PS5', 'Xbox'],
   openGraph: {
     type: 'website',

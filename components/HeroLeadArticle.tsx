@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Article } from '@/lib/types';
+import { formatArticleDate } from '@/lib/date-format';
 import { Clock, MessageSquare, ArrowRight } from 'lucide-react';
 
 interface HeroLeadArticleProps {
@@ -55,7 +56,9 @@ export function HeroLeadArticle({ article, className = '' }: HeroLeadArticleProp
             <span>•</span>
             <span className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-brand-amber" />
-              {article.publishedAt}
+              <time dateTime={article.publishedAt}>
+                {formatArticleDate(article.publishedAt)}
+              </time>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 text-brand-cyan">

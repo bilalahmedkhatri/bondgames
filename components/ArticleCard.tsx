@@ -6,6 +6,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Article } from '@/lib/types';
+import { formatArticleDate } from '@/lib/date-format';
 import { CategoryBadge } from '@/components/ui/CategoryBadge';
 import { Clock, User } from 'lucide-react';
 
@@ -34,7 +35,7 @@ function FeatureCard({ article }: { article: Article }) {
           <div className="flex items-center gap-4 text-xs text-muted-text">
             <span className="flex items-center gap-1"><User className="w-3 h-3" />{article.author}</span>
             <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{article.readTime}m read</span>
-            <span className="ml-auto">{article.publishedAt}</span>
+            <span className="ml-auto">{formatArticleDate(article.publishedAt, false)}</span>
           </div>
         </div>
       </div>
@@ -57,7 +58,7 @@ function ListCard({ article }: { article: Article }) {
           <div className="flex items-center gap-3 text-xs text-muted-text">
             <span>{article.author}</span>
             <span>·</span>
-            <span>{article.publishedAt}</span>
+            <span>{formatArticleDate(article.publishedAt, false)}</span>
             <span className="ml-auto flex items-center gap-1"><Clock className="w-3 h-3" />{article.readTime}m</span>
           </div>
         </div>
@@ -77,7 +78,7 @@ function MiniCard({ article }: { article: Article }) {
           <p className="text-xs font-semibold text-white line-clamp-2 group-hover:text-brand-cyan transition-colors leading-snug">
             {article.title}
           </p>
-          <p className="text-[10px] text-muted-text mt-1">{article.publishedAt}</p>
+          <p className="text-[10px] text-muted-text mt-1">{formatArticleDate(article.publishedAt, false)}</p>
         </div>
       </div>
     </Link>
