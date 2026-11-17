@@ -4,6 +4,7 @@ import './globals.css';
 import { ClientShell } from '@/components/ClientShell';
 import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, isPreview } from '@/lib/seo';
 import { Analytics } from "@vercel/analytics/next"
+import { Script } from 'next/script';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -51,6 +52,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-brand-bg text-brand-text min-h-screen flex flex-col antialiased selection:bg-brand-red selection:text-white">
         <ClientShell>{children}</ClientShell>
         <Analytics />
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="T/IEWTepaT5QIg/piSKcLg"
+          async
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
