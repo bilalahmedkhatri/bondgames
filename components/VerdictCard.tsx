@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Game } from '@/lib/types';
-import { ScoreBadge } from '@/components/ui/ScoreBadge';
+import { RatingBadge } from '@/components/ui/RatingBadge';
 import { ProsConsBox } from '@/components/ui/ProsConsBox';
 import { Award, ExternalLink, ShoppingCart } from 'lucide-react';
 
@@ -29,7 +29,7 @@ export function VerdictCard({ game, className = '' }: VerdictCardProps) {
               <Award className="w-3.5 h-3.5" />
               {verdict.badge || "Editors' Choice"}
             </span>
-            {game.metacriticScore && (
+            {game.metacriticScore != null && (
               <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">
                 Metacritic: {game.metacriticScore}
               </span>
@@ -43,16 +43,16 @@ export function VerdictCard({ game, className = '' }: VerdictCardProps) {
           </p>
         </div>
 
-        {/* Big Score Box */}
-        <div className="flex items-center gap-4 bg-black/40 border border-brand-border px-5 py-3 rounded-xl backdrop-blur shrink-0">
+        {/* Big Rating Box */}
+        {game.rating != null && <div className="flex items-center gap-4 bg-black/40 border border-brand-border px-5 py-3 rounded-xl backdrop-blur shrink-0">
           <div className="text-right">
-            <p className="text-[10px] uppercase font-mono text-brand-muted">Editorial Score</p>
+            <p className="text-[10px] uppercase font-mono text-brand-muted">Rating</p>
             <p className="text-xs font-bold text-white uppercase tracking-wider">
-              {game.score >= 9.5 ? 'Masterpiece' : game.score >= 9.0 ? 'Amazing' : game.score >= 8.0 ? 'Great' : 'Good'}
+              {game.rating >= 9.5 ? 'Masterpiece' : game.rating >= 9.0 ? 'Amazing' : game.rating >= 8.0 ? 'Great' : 'Good'}
             </p>
           </div>
-          <ScoreBadge score={game.score} variant="circle" size="lg" />
-        </div>
+          <RatingBadge rating={game.rating} variant="circle" size="lg" />
+        </div>}
       </div>
 
       {/* Summary Quote */}
@@ -101,6 +101,16 @@ export function VerdictCard({ game, className = '' }: VerdictCardProps) {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-surface border border-brand-border text-xs font-semibold text-white hover:border-green-400 hover:text-green-400 transition-colors"
             >
               Xbox Store <ExternalLink className="w-3 h-3 opacity-60" />
+            </a>
+          )}
+          {game.purchaseLinks.epic && (
+            <a
+              href={game.purchaseLinks.epic}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-surface border border-brand-border text-xs font-semibold text-white hover:border-purple-400 hover:text-purple-300 transition-colors"
+            >
+              Epic Games Store <ExternalLink className="w-3 h-3 opacity-60" />
             </a>
           )}
         </div>

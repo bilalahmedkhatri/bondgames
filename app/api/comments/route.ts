@@ -14,6 +14,7 @@ export async function GET(req: NextRequest) {
   const mapped = comments.map((c) => ({
     id: c.id,
     author: c.authorName,
+    authorAvatar: c.authorAvatar,
     content: c.content,
     createdAt: c.createdAt,
     upvotes: c.upvotes,
@@ -40,11 +41,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       id: saved.id,
       author: saved.authorName,
+      authorAvatar: saved.authorAvatar,
       content: saved.content,
       createdAt: saved.createdAt,
       upvotes: saved.upvotes,
       downvotes: saved.downvotes,
-    });
+      moderationStatus: saved.moderationStatus || 'approved',
+    }, { status: saved.moderationStatus === 'pending' ? 202 : 201 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Internal Server Error' }, { status: 500 });
   }

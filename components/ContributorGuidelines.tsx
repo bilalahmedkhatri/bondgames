@@ -9,7 +9,7 @@ export function ContributorGuidelines() {
         <p className="text-xs font-mono font-bold uppercase tracking-wider text-white">Contributor guide</p>
         <nav aria-label="Contributor guidelines" className="flex flex-wrap lg:flex-col gap-x-4 gap-y-3 text-sm text-brand-muted">
           {contributorSections.map(section => <a key={section.id} href={`#${section.id}`} className="hover:text-brand-cyan transition-colors">{section.title}</a>)}
-          <a href="#sponsored-content" className="hover:text-brand-cyan transition-colors">Sponsored content</a>
+          <a href="#sponsored-content" className="hover:text-brand-cyan transition-colors">Contribution options</a>
           <a href="#contributor-faq" className="hover:text-brand-cyan transition-colors">Frequently asked questions</a>
           <a href="#contact-editorial" className="text-brand-red font-semibold hover:text-white transition-colors">Contact the editorial team</a>
         </nav>
@@ -32,11 +32,53 @@ export function ContributorGuidelines() {
           </section>
         ))}
 
-        <section id="sponsored-content" aria-label="Sponsored content" className="scroll-mt-28 rounded-2xl border border-brand-border bg-brand-surface p-5 sm:p-7 space-y-4">
-          <SectionHeader title="Sponsored content" accent="cyan" />
-          <p className="text-sm sm:text-base leading-relaxed text-brand-muted">Companies can propose sponsorships for useful gaming or hardware content. A peripheral maker might support an accessibility guide, for example, or a development-tool company might sponsor a workflow tutorial. The topic still needs to help readers and meet our editorial standards.</p>
-          <p className="text-sm sm:text-base leading-relaxed text-brand-muted">Sponsored posts are paid advertising placements. They must be clearly disclosed, and paid links must use the sponsored attribute. Payment does not buy a positive review, search rankings or guaranteed indexing.</p>
-          <p className="text-sm sm:text-base leading-relaxed text-brand-muted"><Link href="/advertise" className="text-brand-cyan underline underline-offset-4">Discuss a sponsorship</Link> or read our <Link href="/editorial-guidelines" className="text-brand-cyan underline underline-offset-4">editorial and publishing policy</Link> before submitting.</p>
+        <section id="sponsored-content" aria-label="Contribution options" className="scroll-mt-28 space-y-6">
+          <SectionHeader title="Contribution options" accent="cyan" />
+          <div className="grid sm:grid-cols-3 gap-4">
+            {/* Bulk */}
+            <div className="rounded-2xl border border-brand-purple bg-brand-surface p-5 space-y-3 flex flex-col relative overflow-hidden">
+              <span className="absolute top-3 right-3 text-xs font-bold bg-brand-purple text-white px-2 py-0.5 rounded-full">Best Value</span>
+              <p className="text-xs font-mono font-bold uppercase tracking-wider text-brand-purple">Bulk Package</p>
+              <div>
+                <p className="font-heading text-2xl font-black text-white">$150 <span className="text-sm font-normal text-brand-muted">/ 7 articles</span></p>
+                <p className="text-xs text-brand-purple font-semibold mt-0.5">Save $60 vs Standard</p>
+              </div>
+              <p className="text-sm text-brand-muted leading-relaxed flex-1">Pre-purchase 7 sponsored articles at a discounted rate. Each post includes a permanent <strong className="text-white">do-follow</strong> link and sponsored disclosure.</p>
+              <ul className="space-y-1 text-xs text-brand-muted">
+                <li className="flex gap-2"><span className="text-brand-purple">✓</span> 7 sponsored articles</li>
+                <li className="flex gap-2"><span className="text-brand-purple">✓</span> Permanent do-follow links</li>
+                <li className="flex gap-2"><span className="text-brand-purple">✓</span> Priority scheduling</li>
+                <li className="flex gap-2"><span className="text-brand-purple">✓</span> Dedicated account manager</li>
+              </ul>
+
+            </div>
+            {/* Standard */}
+            <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 space-y-3 flex flex-col">
+              <p className="text-xs font-mono font-bold uppercase tracking-wider text-brand-amber">Standard</p>
+              <p className="font-heading text-2xl font-black text-white">$30</p>
+              <p className="text-sm text-brand-muted leading-relaxed flex-1">Sponsored placement with a permanent <strong className="text-white">do-follow</strong> link. Must be disclosed as sponsored content.</p>
+              <ul className="space-y-1 text-xs text-brand-muted">
+                <li className="flex gap-2"><span className="text-brand-amber">✓</span> Byline &amp; author bio</li>
+                <li className="flex gap-2"><span className="text-brand-amber">✓</span> Permanent do-follow link</li>
+                <li className="flex gap-2"><span className="text-brand-amber">✓</span> Sponsored label applied</li>
+              </ul>
+
+            </div>
+            {/* Featured */}
+            <div className="rounded-2xl border-2 border-brand-red bg-brand-surface p-5 space-y-3 flex flex-col relative overflow-hidden">
+              <span className="absolute top-3 right-3 text-xs font-bold bg-brand-red text-white px-2 py-0.5 rounded-full">Popular</span>
+              <p className="text-xs font-mono font-bold uppercase tracking-wider text-brand-red">Featured Editorial</p>
+              <p className="font-heading text-2xl font-black text-white">$50</p>
+              <p className="text-sm text-brand-muted leading-relaxed flex-1">Priority placement with <strong className="text-white">do-follow</strong> link, homepage feature consideration, and newsletter inclusion.</p>
+              <ul className="space-y-1 text-xs text-brand-muted">
+                <li className="flex gap-2"><span className="text-brand-red">✓</span> Everything in Standard</li>
+                <li className="flex gap-2"><span className="text-brand-red">✓</span> Homepage feature slot</li>
+                <li className="flex gap-2"><span className="text-brand-red">✓</span> Newsletter promotion</li>
+              </ul>
+
+            </div>
+          </div>
+          <p className="text-xs text-brand-muted">Sponsored posts are paid advertising placements and must be clearly disclosed. Payment does not buy a positive editorial outcome or guaranteed indexing. <Link href="/advertise" className="text-brand-cyan underline underline-offset-4">Discuss a larger sponsorship</Link>.</p>
         </section>
 
         <section id="contributor-faq" aria-label="Frequently asked questions" className="scroll-mt-28">

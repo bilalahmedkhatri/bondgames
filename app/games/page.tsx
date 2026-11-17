@@ -13,7 +13,7 @@ import { Flame, SlidersHorizontal, Gamepad2 } from 'lucide-react';
 export async function generateMetadata({ searchParams }: GamesPageProps) {
   const params = await searchParams;
   const filtered = Boolean(params.q?.trim() || [params.genre, params.platform, params.status].some(value => value && value.toLowerCase() !== 'all'));
-  const metadata = pageMetadata({ "title": "Game Reviews, Platforms & PC Requirements", "description": "Explore game details, editorial scores, supported platforms and PC system requirements in the BondsGame catalogue.", "path": "/games", noIndex: filtered });
+  const metadata = pageMetadata({ "title": "Game Reviews, Platforms & PC Requirements", "description": "Explore game details, ratings, supported platforms and PC system requirements in the BondsGame catalogue.", "path": "/games", noIndex: filtered });
   if (filtered) delete metadata.alternates;
   return metadata;
 }
@@ -59,7 +59,7 @@ export default async function GameCataloguePage({ searchParams }: GamesPageProps
             <Gamepad2 className="w-3.5 h-3.5" /> Database & Review Vault
           </span>
           <h1 className="font-heading text-3xl sm:text-4xl font-black text-white tracking-tight mt-1">
-            Game Catalogue & Editorial Scores
+            Game Catalogue & Ratings
           </h1>
           <p className="text-sm text-brand-muted mt-1 max-w-2xl">
             Unbiased critical reviews, comprehensive system requirements, and hardware performance breakdowns.

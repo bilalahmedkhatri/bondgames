@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Game } from '@/lib/types';
-import { ScoreBadge } from '@/components/ui/ScoreBadge';
+import { RatingBadge } from '@/components/ui/RatingBadge';
 import { PlatformList } from '@/components/ui/PlatformIcon';
 import { Flame, ChevronRight } from 'lucide-react';
 
@@ -21,7 +21,7 @@ export function TrendingGamesRail({
   subtitle = 'Top rated and most played games across PC, PlayStation, and Xbox',
   className = '',
 }: TrendingGamesRailProps) {
-  const trendingGames = games.filter((g) => g.trending || g.score >= 9.0).slice(0, 6);
+  const trendingGames = games.filter((g) => g.trending || (g.rating ?? 0) >= 9.0).slice(0, 6);
 
   return (
     <section className={`space-y-4 ${className}`}>
@@ -59,9 +59,9 @@ export function TrendingGamesRail({
               #{index + 1}
             </div>
 
-            {/* Score top-right */}
+            {/* Rating top-right */}
             <div className="absolute top-2 right-2 z-10">
-              <ScoreBadge score={game.score} size="sm" />
+              <RatingBadge rating={(game.rating ?? 0)} size="sm" />
             </div>
 
             {/* Cover */}

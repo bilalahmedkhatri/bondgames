@@ -4,10 +4,11 @@ import { JsonLd } from '@/components/JsonLd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getGameBySlug, getGames } from '@/lib/db/games';
+import { getGameBySlug, getSimilarGames } from '@/lib/db/games';
 import { getCommentsByTarget } from '@/lib/db/comments';
+import { formatGameReleaseDate, formatGameStatus } from '@/lib/game-format';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { ScoreBadge } from '@/components/ui/ScoreBadge';
+import { RatingBadge } from '@/components/ui/RatingBadge';
 import { CategoryBadge } from '@/components/ui/CategoryBadge';
 import { PlatformList } from '@/components/ui/PlatformIcon';
 import { VerdictCard } from '@/components/VerdictCard';
@@ -46,18 +47,15 @@ export default async function GameDetailPage({ params }: GamePageProps) {
     notFound();
   }
 
-  const [comments, allGames] = await Promise.all([
-    getCommentsByTarget(game.id, 'game'),
-    getGames(),
+  const [comments, relatedGames] = await Promise.all([
+    getCommentsByTarget(game.slug, 'game'),
+    getSimilarGames(game.slug, 4),
   ]);
-
-  const relatedGames = allGames
-    .filter((g) => g.id !== game.id && g.genres.some((genre) => game.genres.includes(genre)))
-    .slice(0, 4);
 
   const mappedComments = comments.map((c) => ({
     id: c.id,
     author: c.authorName,
+    authorAvatar: c.authorAvatar,
     content: c.content,
     createdAt: c.createdAt,
     upvotes: c.upvotes,
@@ -77,7 +75,7 @@ export default async function GameDetailPage({ params }: GamePageProps) {
       <Breadcrumbs
         items={[
           { label: 'Game Catalogue', href: '/games' },
-          { label: game.genres[0] || 'Games', href: `/games?genre=${game.genres[0]}` },
+          { label: game.genres[0] || 'Games', href: game.genres[0] ? `/games?genre=${encodeURIComponent(game.genres[0])}` : '/games' },
           { label: game.title },
         ]}
       />
@@ -130,27 +128,27 @@ export default async function GameDetailPage({ params }: GamePageProps) {
                 <span>•</span>
                 <span className="flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-brand-amber" />
-                  {game.releaseDate} ({game.releaseStatus})
+                  {formatGameReleaseDate(game.releaseDate, game.releaseWindow)} ({formatGameStatus(game.releaseStatus)})
                 </span>
                 <span>•</span>
                 <PlatformList platforms={game.platforms} max={4} />
               </div>
             </div>
 
-            {/* Score Box */}
+            {/* Rating Box */}
             <div className="flex items-center gap-4 bg-black/70 border border-brand-border px-6 py-4 rounded-2xl backdrop-blur shrink-0 shadow-xl">
               <div className="text-right">
-                <p className="text-[10px] uppercase font-mono text-brand-muted">Editorial Score</p>
+                <p className="text-[10px] uppercase font-mono text-brand-muted">Rating</p>
                 <p className="text-xs font-bold text-white uppercase tracking-wider">
-                  {game.verdict?.badge || 'Scored'}
+                  {game.verdict?.badge || 'Reviewed'}
                 </p>
-                {game.metacriticScore && (
+                {game.metacriticScore != null && (
                   <p className="text-[10px] font-mono text-yellow-400 mt-0.5">
                     Metacritic: {game.metacriticScore}
                   </p>
                 )}
               </div>
-              <ScoreBadge score={game.score} variant="circle" size="lg" />
+              {game.rating != null && <RatingBadge rating={game.rating} variant="circle" size="lg" />}
             </div>
           </div>
         </div>
@@ -211,30 +209,30 @@ export default async function GameDetailPage({ params }: GamePageProps) {
               Quick Facts
             </h3>
             <div className="space-y-3 text-xs font-mono">
-              <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
+              {game.developer && <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
                 <span className="text-brand-muted">Developer</span>
                 <span className="text-white font-semibold">{game.developer}</span>
-              </div>
-              <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
+              </div>}
+              {game.publisher && <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
                 <span className="text-brand-muted">Publisher</span>
                 <span className="text-white font-semibold">{game.publisher}</span>
-              </div>
+              </div>}
               <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
                 <span className="text-brand-muted">Release Date</span>
-                <span className="text-white font-semibold">{game.releaseDate}</span>
+                <span className="text-white font-semibold">{formatGameReleaseDate(game.releaseDate, game.releaseWindow)}</span>
               </div>
               <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
                 <span className="text-brand-muted">Status</span>
                 <span className="text-brand-cyan font-bold">{game.releaseStatus}</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
+              {game.platforms.length > 0 && <div className="flex items-center justify-between py-1 border-b border-brand-border/40">
                 <span className="text-brand-muted">Platforms</span>
                 <span className="text-white">{game.platforms.join(', ')}</span>
-              </div>
-              <div className="flex items-center justify-between py-1">
+              </div>}
+              {game.genres.length > 0 && <div className="flex items-center justify-between py-1">
                 <span className="text-brand-muted">Genres</span>
                 <span className="text-brand-purple font-semibold">{game.genres.join(', ')}</span>
-              </div>
+              </div>}
             </div>
           </div>
 

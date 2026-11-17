@@ -7,10 +7,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Game } from '@/lib/types';
-import { ScoreBadge } from '@/components/ui/ScoreBadge';
+import { RatingBadge } from '@/components/ui/RatingBadge';
 import { CategoryBadge } from '@/components/ui/CategoryBadge';
 import { PlatformList } from '@/components/ui/PlatformIcon';
 import { Calendar, TrendingUp } from 'lucide-react';
+import { formatGameReleaseDate } from '@/lib/game-format';
 
 interface GameCardProps {
   game: Game;
@@ -33,10 +34,8 @@ function DefaultCard({ game }: { game: Game }) {
             sizes="(max-width: 640px) 100vw, 300px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-          {/* Score pinned bottom-right */}
-          <div className="absolute bottom-3 right-3">
-            <ScoreBadge score={game.score} variant="circle" size="sm" />
-          </div>
+          {/* Rating pinned bottom-right */}
+          {game.rating != null && <div className="absolute bottom-3 right-3"><RatingBadge rating={game.rating} variant="circle" size="sm" /></div>}
           {/* Platform list top-left */}
           <div className="absolute top-3 left-3">
             <PlatformList platforms={game.platforms} max={2} />
@@ -56,7 +55,7 @@ function DefaultCard({ game }: { game: Game }) {
           <div className="flex items-center justify-between pt-1 text-xs text-muted-text">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              {game.releaseDate}
+              {formatGameReleaseDate(game.releaseDate, game.releaseWindow)}
             </span>
             {game.trending && (
               <span className="flex items-center gap-1 text-brand-red">
@@ -84,8 +83,8 @@ function HorizontalCard({ game }: { game: Game }) {
           </h4>
           <CategoryBadge label={game.genres[0]} size="xs" />
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-text">{game.releaseDate}</span>
-            <ScoreBadge score={game.score} size="sm" />
+            <span className="text-xs text-muted-text">{formatGameReleaseDate(game.releaseDate, game.releaseWindow)}</span>
+            {game.rating != null && <RatingBadge rating={game.rating} size="sm" />}
           </div>
         </div>
       </div>
@@ -109,8 +108,8 @@ function HeroCard({ game }: { game: Game }) {
         </h2>
         <p className="text-slate-300 text-sm md:text-base line-clamp-2 max-w-2xl">{game.description}</p>
         <div className="flex items-center gap-4">
-          <ScoreBadge score={game.score} variant="circle" size="lg" />
-          <span className="font-heading text-white text-lg">Editorial Score</span>
+          {game.rating != null && <RatingBadge rating={game.rating} variant="circle" size="lg" />}
+          <span className="font-heading text-white text-lg">Rating</span>
         </div>
       </div>
     </Link>

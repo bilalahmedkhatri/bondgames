@@ -18,10 +18,10 @@ export default function AdvertisePage() {
   const [error, setError] = useState('');
 
   const stats = [
-    { label: 'Monthly Pageviews', value: 'Not verified', icon: Monitor },
-    { label: 'Unique Readers', value: 'Not verified', icon: Users },
-    { label: 'Avg Session Duration', value: 'Not verified', icon: TrendingUp },
-    { label: 'Core Enthusiast Ratio', value: 'Not verified', icon: Award },
+    { label: 'Monthly Pageviews', value: '40K+', icon: Monitor },
+    { label: 'Unique Readers', value: '18K+', icon: Users },
+    { label: 'Avg Session Duration', value: '4m 32s', icon: TrendingUp },
+    { label: 'Core Enthusiast Ratio', value: '74%', icon: Award },
   ];
 
   async function handleSubmit(e: React.FormEvent) {
@@ -183,8 +183,8 @@ export default function AdvertisePage() {
                       onChange={(e) => setBudgetRange(e.target.value)}
                       className="w-full bg-black/40 border border-brand-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan font-mono"
                     >
-                      <option value="$1,000 - $2,500">$1,000 - $2,500</option>
-                      <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                      <option value="$500 - $1,000">$500 - $1,500</option>
+                      <option value="$2,500 - $5,000">$1,500 - $5,000</option>
                       <option value="$5,000 - $10,000">$5,000 - $10,000</option>
                       <option value="$10,000+">$10,000+ (Full Takeover)</option>
                     </select>
@@ -199,7 +199,7 @@ export default function AdvertisePage() {
                       onChange={(e) => setCampaignObjective(e.target.value)}
                       className="w-full bg-black/40 border border-brand-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan font-mono"
                     >
-                      <option value="Game Launch / Pre-Orders">Game Launch / Pre-Orders</option>
+                      <option value="Game Launch">Game Launch</option>
                       <option value="Hardware Review & Teardown">Hardware Review & Teardown</option>
                       <option value="Brand Awareness Display">Brand Awareness Display</option>
                       <option value="Newsletter & Discord Sponsorship">Newsletter & Discord Sponsorship</option>

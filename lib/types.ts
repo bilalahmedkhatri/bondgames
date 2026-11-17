@@ -143,7 +143,7 @@ export interface GuestPostSubmission {
   authorName: string;
   authorEmail: string;
   authorBio: string;
-  packageType: 'Standard ($30)' | 'Featured Editorial ($50)' | 'Enterprise Partner (Custom)';
+  packageType: 'Bulk Package ($120 / 5 articles)' | 'Standard ($30)' | 'Featured Editorial ($50)' | 'Enterprise Partner (Custom)';
   paymentMethod: string;
   status: 'Pending' | 'Approved' | 'Reviewing';
   createdAt: string;

@@ -8,13 +8,20 @@ import { Button } from '@/components/ui/Button';
 import { Textarea } from '@/components/ui/Input';
 import { ThumbsUp, ThumbsDown, MessageCircle, Send } from 'lucide-react';
 
+function formatCommentDate(value: string) {
+  const date = new Date(value);
+  return Number.isNaN(date.valueOf()) ? value : new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+}
+
 export interface CommentItem {
   id: string;
   author: string;
+  authorAvatar?: string;
   content: string;
   createdAt: string;
   upvotes: number;
   downvotes: number;
+  moderationStatus?: 'pending' | 'approved' | 'rejected';
 }
 
 interface CommentSectionProps {
@@ -41,13 +48,17 @@ function CommentRow({ comment }: { comment: CommentItem }) {
 
   return (
     <div className="flex gap-3 py-4 border-b border-slate-800 last:border-0">
-      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-red flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
-        {comment.author[0].toUpperCase()}
-      </div>
+      {comment.authorAvatar ? (
+        <img src={comment.authorAvatar} alt="" referrerPolicy="no-referrer" className="w-9 h-9 rounded-full object-cover flex-shrink-0" />
+      ) : (
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-red flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+          {comment.author[0]?.toUpperCase() || '?'}
+        </div>
+      )}
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-sm font-semibold text-white">{comment.author}</span>
-          <span className="text-xs text-muted-text">{comment.createdAt}</span>
+          <span className="text-xs text-muted-text">{formatCommentDate(comment.createdAt)}</span>
         </div>
         <p className="text-sm text-slate-300 leading-relaxed">{comment.content}</p>
         <div className="flex items-center gap-3 mt-2">
@@ -69,6 +80,7 @@ export function CommentSection({ targetId, targetType, initialComments = [], cla
   const [content, setContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -81,12 +93,14 @@ export function CommentSection({ targetId, targetType, initialComments = [], cla
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ targetId, targetType, author, content }),
       });
-      if (res.ok) {
-        const newComment = await res.json();
-        setComments((prev) => [newComment, ...prev]);
-        setAuthor('');
-        setContent('');
-      }
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Comment could not be submitted.');
+      if (result.moderationStatus === 'pending') setNotice('Thanks. Your comment is submitted and will appear after moderation.');
+      else setComments((prev) => [result, ...prev]);
+      setAuthor('');
+      setContent('');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Comment could not be submitted.');
     } finally {
       setSubmitting(false);
     }
@@ -118,6 +132,7 @@ export function CommentSection({ targetId, targetType, initialComments = [], cla
           rows={3}
         />
         {error && <p className="text-xs text-red-400">{error}</p>}
+        {notice && <p role="status" className="text-xs text-emerald-400">{notice}</p>}
         <div className="flex justify-end">
           <Button type="submit" loading={submitting} icon={<Send className="w-4 h-4" />} iconPosition="right">
             Post Comment

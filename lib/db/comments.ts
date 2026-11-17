@@ -1,5 +1,6 @@
 import type { Comment } from '../types';
 import { runNeonQuery } from './neon';
+import { gamesBackend, gamesBackendConfigured } from '../games-backend';
 
 let commentsStore: Comment[] = [
   {
@@ -82,6 +83,13 @@ let commentsStore: Comment[] = [
 ];
 
 export async function getCommentsByTarget(targetId: string, targetType: 'game' | 'article'): Promise<Comment[]> {
+  if (targetType === 'game' && !gamesBackendConfigured()) {
+    return commentsStore.filter((c) => c.targetId === targetId && c.targetType === 'game');
+  }
+  if (targetType === 'game' && gamesBackendConfigured()) {
+    const rows = await gamesBackend<Array<{id:string;game_id:string;author_name:string;author_avatar:string|null;content:string;upvotes:number;downvotes:number;created_at:string;moderation_status:string}>>(`/${encodeURIComponent(targetId)}/comments`);
+    return rows.map(r => ({id:r.id,targetId:r.game_id,targetType:'game',authorName:r.author_name,authorAvatar:r.author_avatar||undefined,content:r.content,upvotes:r.upvotes,downvotes:r.downvotes,createdAt:r.created_at,moderationStatus:r.moderation_status as Comment['moderationStatus']}));
+  }
   const neonResults = await runNeonQuery<any>(
     'SELECT * FROM comments WHERE target_id = $1 AND target_type = $2 ORDER BY created_at DESC',
     [targetId, targetType]
@@ -111,6 +119,13 @@ export async function addComment(
   content: string,
   authorAvatar = ''
 ): Promise<Comment> {
+  if (targetType === 'game' && !gamesBackendConfigured()) {
+    throw new Error('BondsGame game comments backend is not configured.');
+  }
+  if (targetType === 'game' && gamesBackendConfigured()) {
+    const r = await gamesBackend<{id:string;game_id:string;author_name:string;author_avatar:string|null;content:string;upvotes:number;downvotes:number;created_at:string;moderation_status:string}>(`/${encodeURIComponent(targetId)}/comments`, {method:'POST',body:JSON.stringify({author_name:authorName,author_avatar:authorAvatar||null,content})});
+    return {id:r.id,targetId:r.game_id,targetType:'game',authorName:r.author_name,authorAvatar:r.author_avatar||undefined,content:r.content,upvotes:r.upvotes,downvotes:r.downvotes,createdAt:r.created_at,moderationStatus:r.moderation_status as Comment['moderationStatus']};
+  }
   const newComment: Comment = {
     id: 'c-' + Date.now(),
     targetId,

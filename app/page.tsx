@@ -14,7 +14,7 @@ import { ArticleCard } from '@/components/ArticleCard';
 import { GameCard } from '@/components/GameCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { CategoryBadge } from '@/components/ui/CategoryBadge';
-import { ScoreBadge } from '@/components/ui/ScoreBadge';
+import { RatingBadge } from '@/components/ui/RatingBadge';
 import { BenchmarkChart } from '@/components/BenchmarkChart';
 import { CommunityPoll } from '@/components/CommunityPoll';
 import { NewsletterBanner } from '@/components/NewsletterBanner';
@@ -47,9 +47,9 @@ export default async function HomePage() {
   const latestArticles = articles.filter(article => !heroArticleIds.has(article.id)).slice(0, 6);
   const shownArticleIds = new Set([...heroArticleIds, ...latestArticles.map(article => article.id)]);
   const sidebarArticles = articles.filter(article => !shownArticleIds.has(article.id)).slice(0, 4);
-  const trendingGames = games.filter(game => game.trending || game.score >= 9.0).slice(0, 6);
+  const trendingGames = games.filter(game => game.trending || (game.rating ?? 0) >= 9.0).slice(0, 6);
   const trendingIds = new Set(trendingGames.map(game => game.id));
-  const featuredGames = games.filter(game => !trendingIds.has(game.id) && (game.isFeatured || game.score >= 9.2)).slice(0, 4);
+  const featuredGames = games.filter(game => !trendingIds.has(game.id) && (game.isFeatured || (game.rating ?? 0) >= 9.2)).slice(0, 4);
   const shownGameIds = new Set([...trendingIds, ...featuredGames.map(game => game.id)]);
   const sidebarGames = games.filter(game => !shownGameIds.has(game.id)).slice(0, 4);
 
