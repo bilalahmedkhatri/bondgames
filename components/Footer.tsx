@@ -43,7 +43,7 @@ export function Footer() {
                 <span className="font-heading text-lg sm:text-xl font-black tracking-tighter text-white">
                   BONDS<span className="text-brand-red">GAME</span>
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-brand-cyan uppercase pl-0.5 mt-0.5">
+                <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-brand-cyan uppercase mt-[-5]">
                   .click
                 </span>
               </div>

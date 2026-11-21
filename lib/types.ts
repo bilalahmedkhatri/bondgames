@@ -205,3 +205,47 @@ export interface DashboardBookmark {
   targetType: 'game' | 'article';
   createdAt: string;
 }
+
+export interface CreatorHardware {
+  pcBench: string;
+  display: string;
+  consoles: string;
+  peripherals?: string;
+}
+
+export interface CreatorSocials {
+  youtube?: string;
+  twitter?: string;
+  steam?: string;
+  discord?: string;
+  twitch?: string;
+  email?: string;
+}
+
+export interface CreatorStats {
+  articlesPublished: number;
+  gamesScored: number;
+  monthlyReaders: string;
+  averageScore: number;
+  yearsActive: string;
+}
+
+export interface Creator {
+  id: string;
+  slug: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  coverImage?: string;
+  role: string;
+  department: string;
+  location: string;
+  bio: string;
+  verified: boolean;
+  specialties: string[];
+  hardware: CreatorHardware;
+  socials: CreatorSocials;
+  stats: CreatorStats;
+  featuredArticleSlugs?: string[];
+  featuredGameSlugs?: string[];
+}

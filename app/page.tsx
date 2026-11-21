@@ -81,11 +81,8 @@ export default async function HomePage() {
           <div className="border-b border-brand-border pb-3 mb-3 flex items-center justify-between">
             <h2 className="font-heading text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
-              Live Breaking Feed
+              Breaking Feed
             </h2>
-            <span className="text-[10px] font-mono font-bold text-brand-cyan uppercase bg-brand-cyan/10 px-2 py-0.5 rounded border border-brand-cyan/30">
-              Real-time
-            </span>
           </div>
 
           <div className="divide-y divide-brand-border/60 flex-1 flex flex-col justify-between">

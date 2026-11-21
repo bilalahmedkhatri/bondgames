@@ -28,21 +28,21 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
         <div className="flex items-center justify-between h-16 sm:h-20">
 
           {/* Logo & Main Nav */}
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-3 group focus:outline-none" aria-label="BondsGame Home">
+          <div className="flex items-center gap-8 min-w-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group focus:outline-none min-w-0" aria-label="BondsGame Home">
               <Image
                 src="/logo.webp"
                 alt="BondsGame"
                 width={68}
                 height={43}
                 priority
-                className="h-11 w-auto sm:h-13 object-contain transition-transform group-hover:scale-105"
+                className="h-9 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105 shrink-0"
               />
               <div className="flex flex-col justify-center leading-none">
-                <span className="font-heading text-xl sm:text-2xl font-black tracking-tighter text-white">
+                <span className="font-heading text-lg sm:text-2xl font-black tracking-tighter text-white whitespace-nowrap">
                   BONDS<span className="text-brand-red">GAME</span>
                 </span>
-                <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-widest text-brand-cyan uppercase mt-[-5]">
+                <span className="text-[9px] sm:text-[11px] font-mono font-bold tracking-widest text-brand-cyan uppercase mt-[-1]">
                   .click
                 </span>
               </div>
@@ -70,16 +70,16 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-3">
-            {/* Command Palette Trigger */}
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Command Palette Trigger (Hidden on mobile < sm, visible on tablet/desktop) */}
             <button
               onClick={onOpenSearch}
-              className="flex items-center gap-2 bg-brand-surface hover:bg-brand-surfaceHover text-brand-muted hover:text-white px-3 py-2 rounded-lg border border-brand-border text-xs font-mono transition-colors"
+              className="hidden sm:flex items-center gap-2 bg-brand-surface hover:bg-brand-surfaceHover text-brand-muted hover:text-white px-3 py-2 rounded-lg border border-brand-border text-xs font-mono transition-colors"
               title="Search games, hardware, and news (Cmd+K)"
             >
               <Search className="w-3.5 h-3.5 text-brand-red" />
-              <span className="hidden sm:inline">Search...</span>
-              <kbd className="hidden sm:inline-block bg-black/60 px-1.5 py-0.5 text-[10px] rounded border border-brand-border text-brand-muted font-sans">
+              <span className="hidden md:inline">Search...</span>
+              <kbd className="hidden md:inline-block bg-black/60 px-1.5 py-0.5 text-[10px] rounded border border-brand-border text-brand-muted font-sans">
                 ⌘K
               </kbd>
             </button>
@@ -99,6 +99,22 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-brand-surface border-b border-brand-border px-5 py-4 space-y-3 font-semibold uppercase text-xs tracking-wider">
+          {/* Mobile Search Trigger inside drawer */}
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenSearch?.();
+            }}
+            className="w-full flex items-center justify-between bg-brand-bg hover:bg-brand-surfaceHover text-brand-muted hover:text-white px-3.5 py-2.5 rounded-lg border border-brand-border text-xs font-mono transition-colors mb-2"
+          >
+            <span className="flex items-center gap-2">
+              <Search className="w-4 h-4 text-brand-red" />
+              <span>Search games, news & tech...</span>
+            </span>
+            <kbd className="bg-black/60 px-1.5 py-0.5 text-[10px] rounded border border-brand-border text-brand-muted font-sans">
+              ⌘K
+            </kbd>
+          </button>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -111,9 +127,16 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
           ))}
           <div className="pt-2 flex flex-col gap-2">
             <Link
+              href="/creators"
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-brand-red hover:bg-brand-redDark text-white text-center py-2.5 rounded text-xs font-bold uppercase transition-colors"
+            >
+              Content Creators & Editorial Team
+            </Link>
+            <Link
               href="/dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-brand-border hover:bg-brand-borderLight text-white text-center py-2.5 rounded text-xs font-bold uppercase"
+              className="bg-brand-border hover:bg-brand-borderLight text-slate-300 text-center py-2 rounded text-xs font-semibold uppercase transition-colors"
             >
               My Dashboard & Bookmarks
             </Link>

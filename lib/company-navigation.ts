@@ -3,5 +3,6 @@ export const companyLinks = [
   { label: 'Terms of Service', href: '/terms' },
   { label: 'Contact Editorial & Tech', href: '/contact' },
   { label: 'Press & Review Codes', href: '/press' },
+  { label: 'Content Creators & Editorial', href: '/creators' },
   { label: 'My Profile & Wishlist', href: '/dashboard' },
 ] as const;
