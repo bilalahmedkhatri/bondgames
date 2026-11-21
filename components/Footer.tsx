@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { partnerLinks } from '@/lib/partner-navigation';
 import { companyLinks } from '@/lib/company-navigation';
@@ -30,10 +31,22 @@ export function Footer() {
 
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <span className="font-heading text-xl font-black tracking-tighter text-white">
-                BONDS<span className="text-brand-red">GAME</span>
-              </span>
+            <Link href="/" className="flex items-center gap-3 focus:outline-none" aria-label="BondsGame Home">
+              <Image
+                src="/logo.webp"
+                alt="BondsGame"
+                width={60}
+                height={38}
+                className="h-10 w-auto sm:h-11 object-contain"
+              />
+              <div className="flex flex-col justify-center leading-none">
+                <span className="font-heading text-lg sm:text-xl font-black tracking-tighter text-white">
+                  BONDS<span className="text-brand-red">GAME</span>
+                </span>
+                <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-brand-cyan uppercase pl-0.5 mt-0.5">
+                  .click
+                </span>
+              </div>
             </Link>
             <p className="text-xs text-brand-muted leading-relaxed max-w-sm">
               BondsGame is a high-performance independent gaming journalism and review portal dedicated to unbiased evaluations, hardware benchmark teardowns, and breaking video game news.

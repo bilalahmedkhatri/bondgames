@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, User, Menu, X } from 'lucide-react';
 
@@ -28,10 +29,23 @@ export function Navbar({ onOpenSearch }: NavbarProps) {
 
           {/* Logo & Main Nav */}
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="font-heading text-2xl font-black tracking-tighter text-white">
-                BONDS<span className="text-brand-red">GAME</span>
-              </span>
+            <Link href="/" className="flex items-center gap-3 group focus:outline-none" aria-label="BondsGame Home">
+              <Image
+                src="/logo.webp"
+                alt="BondsGame"
+                width={68}
+                height={43}
+                priority
+                className="h-11 w-auto sm:h-13 object-contain transition-transform group-hover:scale-105"
+              />
+              <div className="flex flex-col justify-center leading-none">
+                <span className="font-heading text-xl sm:text-2xl font-black tracking-tighter text-white">
+                  BONDS<span className="text-brand-red">GAME</span>
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-widest text-brand-cyan uppercase mt-[-5]">
+                  .click
+                </span>
+              </div>
             </Link>
 
             <nav className="hidden lg:flex items-center gap-1 text-xs font-bold tracking-wider uppercase">

@@ -29,6 +29,21 @@ export const metadata: Metadata = {
   description:
     SITE_DESCRIPTION,
   robots: { index: !isPreview, follow: true },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'icon', url: '/icon-192.webp', type: 'image/webp', sizes: '192x192' },
+      { rel: 'icon', url: '/icon-512.webp', type: 'image/webp', sizes: '512x512' },
+    ],
+  },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
     yandex: process.env.YANDEX_SITE_VERIFICATION,
@@ -43,6 +58,20 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: 'BondsGame | High-End Gaming News, Reviews & Benchmarks',
     description: 'Premier gaming journalism, hardware teardowns, and review scores.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'BondsGame.click — Next-Gen Gaming Journalism & Benchmarks',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BondsGame | High-End Gaming News, Reviews & Benchmarks',
+    description: 'Premier gaming journalism, hardware teardowns, and review scores.',
+    images: ['/og-image.jpg'],
   },
 };
 
